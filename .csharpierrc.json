@@ -1,0 +1,6 @@
+{
+  "useTabs": true,
+  "tabWidth": 3,
+  "preprocessorSymbolSets": ["FIRST", "SECOND", ""],
+  "printWidth": 80
+}

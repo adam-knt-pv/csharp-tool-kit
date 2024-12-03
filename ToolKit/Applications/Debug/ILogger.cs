@@ -1,6 +1,7 @@
 ﻿using System.Collections;
+using ToolKit.Applications;
 
-namespace ToolKit.Debug;
+namespace ToolKit.Applications.Debug;
 
 public interface ILogger
 {
@@ -20,10 +21,10 @@ public interface ILogger
 
 		var result = string.Join(' ', text_items);
 
-		lock (Project.LoggerLock)
+		lock (Application.Instance.LoggerLock)
 		{
-			Project.Logger.Write(result);
-			Project.Logger.WriteLine();
+			Application.Instance.Logger.Write(result);
+			Application.Instance.Logger.WriteLine();
 		}
 	}
 
@@ -42,30 +43,32 @@ public interface ILogger
 			? "---"
 			: $"--- {string.Join(' ', text_items)} ---";
 
-		lock (Project.LoggerLock)
+		lock (Application.Instance.LoggerLock)
 		{
-			Project.Logger.Write(result);
-			Project.Logger.WriteLine();
+			Application.Instance.Logger.Write(result);
+			Application.Instance.Logger.WriteLine();
 		}
 	}
 
 	static void printl(params object?[] items)
 	{
-		lock (Project.LoggerLock)
+		lock (Application.Instance.LoggerLock)
 		{
 			for (int i = 0; i < items.Length; i++)
 			{
 				if (items[i] is IEnumerable enumerable and not string)
 				{
-					Project.Logger.Write($"[{i}]: {enumerable.GetType().ToText()}");
-					Project.Logger.WriteLine();
+					Application.Instance.Logger.Write(
+						$"[{i}]: {enumerable.GetType().ToText()}"
+					);
+					Application.Instance.Logger.WriteLine();
 
 					printItems(enumerable, 1);
 					continue;
 				}
 
-				Project.Logger.Write($"[{i}]: {items[i].ToText()}");
-				Project.Logger.WriteLine();
+				Application.Instance.Logger.Write($"[{i}]: {items[i].ToText()}");
+				Application.Instance.Logger.WriteLine();
 			}
 		}
 
@@ -78,15 +81,17 @@ public interface ILogger
 
 				if (item is IEnumerable enumerable and not string)
 				{
-					Project.Logger.Write(
+					Application.Instance.Logger.Write(
 						$"{text_indent}[{i++}]: {enumerable.GetType().ToText()}"
 					);
-					Project.Logger.WriteLine();
+					Application.Instance.Logger.WriteLine();
 					continue;
 				}
 
-				Project.Logger.Write($"{text_indent}[{i++}]: {item.ToText()}");
-				Project.Logger.WriteLine();
+				Application.Instance.Logger.Write(
+					$"{text_indent}[{i++}]: {item.ToText()}"
+				);
+				Application.Instance.Logger.WriteLine();
 			}
 		}
 	}

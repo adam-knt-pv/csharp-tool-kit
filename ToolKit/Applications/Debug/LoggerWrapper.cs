@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace ToolKit.Debug;
+namespace ToolKit.Applications.Debug;
 
 public sealed class LoggerWrapper : ILogger
 {

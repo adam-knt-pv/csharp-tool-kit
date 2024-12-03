@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace ToolKit.GameDevelopment;
+namespace ToolKit.Applications.Games;
 
 public readonly struct ServerAddress : IParsable<ServerAddress>
 {

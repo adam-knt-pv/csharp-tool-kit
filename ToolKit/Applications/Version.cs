@@ -24,8 +24,6 @@ public readonly struct Version : IParsable<Version>
 
 		if (version.Length > 3)
 			minor = int.Parse(version[3]);
-
-		print(this.ToString());
 	}
 
 	public override string ToString() =>

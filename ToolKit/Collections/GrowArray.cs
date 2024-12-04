@@ -21,38 +21,41 @@ public struct GrowArray<T>
 	/// </summary>
 	public int LastIndex => Count - 1;
 
-	public T this[int i]
+	public T this[int at]
 	{
-		get => items[i];
-		set => items[i] = value;
+		get => items[at];
+		set => items[at] = value;
 	}
 
-	public GrowArray()
-		: this(32) { }
-
-	public GrowArray(int capacity)
+	public static GrowArray<T> With(int capacity)
 	{
+		var result = new GrowArray<T>();
 #if ERR
 		ArgumentOutOfRangeException.ThrowIfNegative(capacity);
 #endif
-		items = new T[capacity];
-		Count = 0;
+		result.items = new T[capacity];
+		result.Count = 0;
+
+		return result;
 	}
 
-	public GrowArray(T[] from)
-	{
-		items = from;
-		Count = from.Length;
-	}
+	public static GrowArray<T> From(params T[] array) =>
+		new GrowArray<T> { items = array, Count = array.Length };
 
-	public GrowArray(T[] copy, int add_capacity)
+	public static GrowArray<T> From(T[] array, int count) =>
+		new GrowArray<T>() { items = array, Count = count };
+
+	public static GrowArray<T> Copy(T[] array, int capacity = 0)
 	{
+		var result = new GrowArray<T>();
 #if ERR
-		ArgumentOutOfRangeException.ThrowIfNegative(add_capacity);
+		ArgumentOutOfRangeException.ThrowIfNegative(capacity);
 #endif
-		items = new T[copy.Length + add_capacity];
-		copy.CopyTo(items, 0);
-		Count = copy.Length;
+		result.items = new T[array.Length + capacity];
+		array.CopyTo(result.items, 0);
+		result.Count = array.Length;
+
+		return result;
 	}
 
 	/// <summary>
@@ -74,11 +77,17 @@ public struct GrowArray<T>
 		return false;
 	}
 
+	public static GrowArray<T> operator +(GrowArray<T> left, T right)
+	{
+		left.Append(right);
+		return left;
+	}
+
 	/// <summary>
 	/// Adds the given item to the end of this collection.
 	/// </summary>
 	/// <param name="item"></param>
-	public void Add(T item)
+	public void Append(T item)
 	{
 		int i = Count++;
 
@@ -88,32 +97,44 @@ public struct GrowArray<T>
 		items[i] = item;
 	}
 
+	public static GrowArray<T> operator +(GrowArray<T> left, T[] right)
+	{
+		left.Append(right);
+		return left;
+	}
+
 	/// <summary>
 	/// Adds one or more items to the end of this collection.
 	/// </summary>
-	/// <param name="range"></param>
-	public void AddRange(params T[] range)
+	/// <param name="items"></param>
+	public void Append(params T[] items)
 	{
 		int i = Count;
-		Count += range.Length;
+		Count += items.Length;
 
-		if (items.Length < Count)
+		if (this.items.Length < Count)
 		{
 			int new_size = i;
 
 			while (new_size < Count)
 				new_size <<= 2;
 
-			Array.Resize(ref items, new_size);
+			Array.Resize(ref this.items, new_size);
 		}
 
-		range.CopyTo(items, i);
+		items.CopyTo(this.items, i);
+	}
+
+	public static GrowArray<T> operator --(GrowArray<T> array)
+	{
+		array.Pop();
+		return array;
 	}
 
 	/// <summary>
 	/// Removes the element from the end of this collection.
 	/// </summary>
-	public void RemoveLast()
+	public void Pop()
 	{
 		Count--;
 #if ERR
@@ -135,6 +156,8 @@ public struct GrowArray<T>
 		for (int i = 0; i < Count; i++)
 			yield return items[i];
 	}
+
+	public static implicit operator T[](GrowArray<T> array) => array.ToArray();
 
 	/// <summary>
 	/// Returns a new array containing the items of this collection up to the current count.

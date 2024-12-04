@@ -1,5 +1,4 @@
-﻿using ToolKit.Applications;
-using ToolKit.Applications.Debug;
+﻿using ToolKit.Debug;
 
 namespace ToolKit.Tests.Debug;
 
@@ -44,13 +43,8 @@ public class Logger
 
 	public static void LoggerWrapperTest()
 	{
-		var app = new Application<_>("x", new())
-		{
-			Logger = new LoggerWrapper(Console.WriteLine),
-		};
+		ToolKit.Debug.Logger.Singleton = new LoggerWrapper(Console.WriteLine);
 
 		print("Hello!");
 	}
-
-	enum _;
 }

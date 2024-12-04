@@ -4,14 +4,14 @@ public class GrowArray
 {
 	public static void Capacity()
 	{
-		var array = new GrowArray<int>(10);
+		var array = GrowArray<int>.With(10);
 
-		array.Add(10);
-		array.Add(11);
-		array.Add(12);
-		array.AddRange(13, 14, 15, 16, 17, 18);
+		array.Append(10);
+		array.Append(11);
+		array.Append(12);
+		array.Append(13, 14, 15, 16, 17, 18);
 
-		array.RemoveLast();
+		array.Pop();
 
 		if (array.TryGet(8, out var item))
 			print(nameof(array.TryGet), item);
@@ -26,14 +26,14 @@ public class GrowArray
 
 	public static void From()
 	{
-		var array = new GrowArray<int>([10, 11, 12]);
+		var array = GrowArray<int>.From(10, 11, 12);
 
-		array.Add(13);
-		array.Add(14);
-		array.Add(15);
-		array.AddRange(16, 17, 18);
+		array += 13;
+		array.Append(14);
+		array.Append(15);
+		array += [16, 17, 18];
 
-		array.RemoveLast();
+		array--;
 
 		if (array.TryGet(8, out var item))
 			print(nameof(array.TryGet), item);
@@ -48,14 +48,14 @@ public class GrowArray
 
 	public static void Copy()
 	{
-		var array = new GrowArray<int>([10, 11, 12], 0);
+		var array = GrowArray<int>.Copy([10, 11, 12]);
 
-		array.Add(13);
-		array.Add(14);
-		array.Add(15);
-		array.AddRange(16, 17, 18);
+		array.Append(13);
+		array.Append(14);
+		array.Append(15);
+		array.Append(16, 17, 18);
 
-		array.RemoveLast();
+		array.Pop();
 
 		if (array.TryGet(8, out var item))
 			print(nameof(array.TryGet), item);
@@ -68,14 +68,14 @@ public class GrowArray
 		}
 	}
 
-	public static void Testspace()
+	public static void Tests()
 	{
-		var array = new GrowArray<int?>([1], 10);
+		var array = GrowArray<int?>.Copy([1], 10);
 
-		array.Add(null);
-		array.Add(14);
-		array.Add(15);
-		array.AddRange(16, 17, 18);
+		array.Append((int?)null);
+		array.Append(14);
+		array.Append(15);
+		array.Append(16, 17, 18);
 		//
 		// array.RemoveLast();
 		//
@@ -84,10 +84,10 @@ public class GrowArray
 		//
 		// print(nameof(array.GetRandom), array.GetRandom());
 		//
-		// foreach (var i in array)
-		// {
-		// 	print(i);
-		// }
+		foreach (var i in array)
+		{
+			print(i);
+		}
 
 		// if (array.TryGet(array.LastIndex, out var item))
 		// 	print(nameof(array.TryGet), item);

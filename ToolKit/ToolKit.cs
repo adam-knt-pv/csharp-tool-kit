@@ -1,6 +1,6 @@
 ﻿global using System;
-global using static ToolKit.Applications.Debug.ILogger;
 global using ToolKit.Collections;
+global using static ToolKit.Debug.ILogger;
 
 namespace ToolKit;
 

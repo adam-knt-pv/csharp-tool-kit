@@ -1,7 +1,6 @@
 ﻿using System.Collections;
-using ToolKit.Applications;
 
-namespace ToolKit.Applications.Debug;
+namespace ToolKit.Debug;
 
 public interface ILogger
 {
@@ -21,10 +20,10 @@ public interface ILogger
 
 		var result = string.Join(' ', text_items);
 
-		lock (Application.Instance.LoggerLock)
+		lock (Logger.Lock)
 		{
-			Application.Instance.Logger.Write(result);
-			Application.Instance.Logger.WriteLine();
+			Logger.Singleton.Write(result);
+			Logger.Singleton.WriteLine();
 		}
 	}
 
@@ -43,32 +42,32 @@ public interface ILogger
 			? "---"
 			: $"--- {string.Join(' ', text_items)} ---";
 
-		lock (Application.Instance.LoggerLock)
+		lock (Logger.Lock)
 		{
-			Application.Instance.Logger.Write(result);
-			Application.Instance.Logger.WriteLine();
+			Logger.Singleton.Write(result);
+			Logger.Singleton.WriteLine();
 		}
 	}
 
 	static void printl(params object?[] items)
 	{
-		lock (Application.Instance.LoggerLock)
+		lock (Logger.Lock)
 		{
 			for (int i = 0; i < items.Length; i++)
 			{
 				if (items[i] is IEnumerable enumerable and not string)
 				{
-					Application.Instance.Logger.Write(
+					Logger.Singleton.Write(
 						$"[{i}]: {enumerable.GetType().ToText()}"
 					);
-					Application.Instance.Logger.WriteLine();
+					Logger.Singleton.WriteLine();
 
 					printItems(enumerable, 1);
 					continue;
 				}
 
-				Application.Instance.Logger.Write($"[{i}]: {items[i].ToText()}");
-				Application.Instance.Logger.WriteLine();
+				Logger.Singleton.Write($"[{i}]: {items[i].ToText()}");
+				Logger.Singleton.WriteLine();
 			}
 		}
 
@@ -81,20 +80,16 @@ public interface ILogger
 
 				if (item is IEnumerable enumerable and not string)
 				{
-					Application.Instance.Logger.Write(
+					Logger.Singleton.Write(
 						$"{text_indent}[{i++}]: {enumerable.GetType().ToText()}"
 					);
-					Application.Instance.Logger.WriteLine();
+					Logger.Singleton.WriteLine();
 					continue;
 				}
 
-				Application.Instance.Logger.Write(
-					$"{text_indent}[{i++}]: {item.ToText()}"
-				);
-				Application.Instance.Logger.WriteLine();
+				Logger.Singleton.Write($"{text_indent}[{i++}]: {item.ToText()}");
+				Logger.Singleton.WriteLine();
 			}
 		}
 	}
 }
-
-public sealed record Logger(Action<string> Write, Action WriteLine) : ILogger;

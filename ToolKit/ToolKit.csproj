@@ -11,4 +11,17 @@
         <DefineConstants>ERR</DefineConstants>
     </PropertyGroup>
 
+    <PropertyGroup>
+        <PackageId>MageToolKit</PackageId>
+        <Authors>Adam Knight (pathmage)</Authors>
+        <RepositoryUrl>https://github.com/pathmage-dev/csharp-tool-kit</RepositoryUrl>
+        <PackageLicenseFile>LICENSE</PackageLicenseFile>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <None Include="../LICENSE" Pack="true" PackagePath=""/>
+        <None Include="../README.md" Pack="true" PackagePath=""/> 
+    </ItemGroup> 
+
 </Project>

@@ -1,6 +1,6 @@
 ﻿using System.Threading;
 
-namespace ToolKit.Debug;
+namespace pathmage.ToolKit.Debug;
 
 public sealed record Logger(Action<string> Write, Action WriteLine) : ILogger
 {

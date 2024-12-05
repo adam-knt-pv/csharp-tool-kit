@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
-namespace ToolKit.Collections;
+namespace pathmage.ToolKit.Collections;
 
 /// <summary>
 /// Fast grow-only array.

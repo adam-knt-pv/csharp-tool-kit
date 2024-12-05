@@ -1,7 +1,6 @@
 ﻿global using System;
-global using ToolKit.Collections;
-global using static ToolKit.Debug.ILogger;
+global using static pathmage.ToolKit.Debug.ILogger;
 
-namespace ToolKit;
+namespace pathmage.ToolKit;
 
 public static partial class Extensions;

@@ -1,4 +1,4 @@
-﻿namespace ToolKit.Tests.Utilities.Extensions;
+﻿namespace pathmage.ToolKit.Tests.Utilities.Extensions;
 
 public class Iteration
 {

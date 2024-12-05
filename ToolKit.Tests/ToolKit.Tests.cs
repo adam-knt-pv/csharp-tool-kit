@@ -1,6 +1,6 @@
 ﻿global using System;
-global using ToolKit;
-global using ToolKit.Collections;
-global using static ToolKit.Debug.ILogger;
+global using pathmage.ToolKit;
+global using pathmage.ToolKit.Collections;
+global using static pathmage.ToolKit.Debug.ILogger;
 
-namespace ToolKit.Tests;
+namespace pathmage.ToolKit.Tests;

@@ -1,32 +1,7 @@
-﻿namespace ToolKit;
+﻿namespace pathmage.ToolKit;
 
-public class Constants
+class Constants
 {
-	public static class CharSet
-	{
-		public static readonly char[] WhiteSpace = [' ', '\t'];
-
-		public static readonly char[] FileForbidden =
-		[
-			'/',
-			'\\',
-			'?',
-			'%',
-			'*',
-			':',
-			'|',
-			'"',
-			'<',
-			'>',
-			'.',
-			',',
-			';',
-			'=',
-			' ',
-			'\t',
-		];
-	}
-
 	public static class StringSet
 	{
 		/// <summary>

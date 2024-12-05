@@ -1,4 +1,4 @@
-﻿namespace ToolKit;
+﻿namespace pathmage.ToolKit;
 
 partial class Extensions
 {

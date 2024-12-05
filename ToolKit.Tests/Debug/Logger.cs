@@ -1,6 +1,6 @@
-﻿using ToolKit.Debug;
+﻿using pathmage.ToolKit.Debug;
 
-namespace ToolKit.Tests.Debug;
+namespace pathmage.ToolKit.Tests.Debug;
 
 public class Logger
 {
@@ -43,7 +43,9 @@ public class Logger
 
 	public static void LoggerWrapperTest()
 	{
-		ToolKit.Debug.Logger.Singleton = new LoggerWrapper(Console.WriteLine);
+		pathmage.ToolKit.Debug.Logger.Singleton = new LoggerWrapper(
+			Console.WriteLine
+		);
 
 		print("Hello!");
 	}

@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace ToolKit.Debug;
+namespace pathmage.ToolKit.Debug;
 
 public sealed class LoggerWrapper : ILogger
 {

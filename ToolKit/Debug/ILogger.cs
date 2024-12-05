@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 
-namespace ToolKit.Debug;
+namespace pathmage.ToolKit.Debug;
 
 public interface ILogger
 {

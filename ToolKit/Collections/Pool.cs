@@ -1,7 +1,6 @@
 ﻿using System.Buffers;
-using System.Diagnostics.CodeAnalysis;
 
-namespace ToolKit.Collections;
+namespace pathmage.ToolKit.Collections;
 
 public struct Pool<T>
 {

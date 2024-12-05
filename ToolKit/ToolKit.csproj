@@ -12,7 +12,10 @@
     </PropertyGroup>
 
     <PropertyGroup>
-        <PackageId>MageToolKit</PackageId>
+        <AssemblyName>pathmage.ToolKit</AssemblyName>
+        <RootNamespace>pathmage.ToolKit</RootNamespace>
+        <Title>pathmage.ToolKit</Title> 
+        <PackageId>pathmage.ToolKit</PackageId>
         <Authors>Adam Knight (pathmage)</Authors>
         <RepositoryUrl>https://github.com/pathmage-dev/csharp-tool-kit</RepositoryUrl>
         <PackageLicenseFile>LICENSE</PackageLicenseFile>

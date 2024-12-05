@@ -1,4 +1,4 @@
-﻿namespace ToolKit.Tests.Collections;
+﻿namespace pathmage.ToolKit.Tests.Collections;
 
 public class Vec
 {

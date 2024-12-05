@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
-namespace ToolKit.Collections;
+namespace pathmage.ToolKit.Collections;
 
 /// <summary>
 /// The order of the items doesn't matter and their indexes can change.

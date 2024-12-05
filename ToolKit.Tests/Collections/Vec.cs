@@ -1,6 +1,6 @@
 ﻿namespace ToolKit.Tests.Collections;
 
-public class GrowArray
+public class Vec
 {
 	public static void Capacity()
 	{

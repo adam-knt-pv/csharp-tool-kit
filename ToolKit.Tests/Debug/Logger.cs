@@ -6,6 +6,7 @@ public class Logger
 {
 	public static void ILogger()
 	{
+		printl(Constants.StringSet.TrueFalse);
 		print("Hello!");
 
 		print(null, "", typeof(Action<>));

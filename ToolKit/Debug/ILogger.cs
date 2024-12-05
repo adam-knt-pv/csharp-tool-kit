@@ -11,11 +11,11 @@ public interface ILogger
 	/// Writes one or more items to the current output as readable text with a space between each argument.
 	/// </summary>
 	/// <param name="items"></param>
-	static void print(params object?[] items)
+	static void print(params ReadOnlySpan<object?> items)
 	{
 		var text_items = new string[items.Length];
 
-		for (var i = 0; i < items.Length; i++)
+		foreach (var i in items.Length)
 			text_items[i] = items[i].ToText();
 
 		var result = string.Join(' ', text_items);
@@ -31,7 +31,7 @@ public interface ILogger
 	/// <inheritdoc cref="print"/>
 	/// </summary>
 	/// <param name="items"></param>
-	static void printt(params object?[] items)
+	static void printt(params ReadOnlySpan<object?> items)
 	{
 		var text_items = new string[items.Length];
 
@@ -49,7 +49,7 @@ public interface ILogger
 		}
 	}
 
-	static void printl(params object?[] items)
+	static void printl(params Span<object?> items)
 	{
 		lock (Logger.Lock)
 		{

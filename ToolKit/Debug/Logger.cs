@@ -1,4 +1,6 @@
-﻿namespace ToolKit.Debug;
+﻿using System.Threading;
+
+namespace ToolKit.Debug;
 
 public sealed record Logger(Action<string> Write, Action WriteLine) : ILogger
 {
@@ -12,5 +14,5 @@ public sealed record Logger(Action<string> Write, Action WriteLine) : ILogger
 		}
 	}
 	static ILogger _singleton = new Logger(Console.Write, Console.WriteLine);
-	public static readonly object Lock = new();
+	public static readonly Lock Lock = new();
 }

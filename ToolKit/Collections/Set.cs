@@ -11,10 +11,10 @@ public struct Set<T>
 {
 	T[] items;
 
-	/// <inheritdoc cref="GrowArray{T}.Count"/>
+	/// <inheritdoc cref="Vec{T}.Count"/>
 	public int Count { get; private set; }
 
-	/// <inheritdoc cref="GrowArray{T}.LastIndex"/>
+	/// <inheritdoc cref="Vec{T}.LastIndex"/>
 	public int LastIndex => Count - 1;
 
 	public T this[int at]
@@ -69,7 +69,7 @@ public struct Set<T>
 		return false;
 	}
 
-	/// <inheritdoc cref="GrowArray{T}.TryGet"/>
+	/// <inheritdoc cref="Vec{T}.TryGet"/>
 	public bool TryGet(int at, [NotNullWhen(true)] out T item)
 	{
 		if (at > 0 && at < Count)
@@ -87,7 +87,7 @@ public struct Set<T>
 		return left;
 	}
 
-	/// <inheritdoc cref="GrowArray{T}.Append(T)"/>
+	/// <inheritdoc cref="Vec{T}.Append(T)"/>
 	public void Append(T item)
 	{
 		int i = Count++;
@@ -104,7 +104,7 @@ public struct Set<T>
 		return left;
 	}
 
-	/// <inheritdoc cref="GrowArray{T}.Append(T[])"/>
+	/// <inheritdoc cref="Vec{T}.Append(T[])"/>
 	public void Append(params T[] items)
 	{
 		int i = Count;
@@ -121,12 +121,6 @@ public struct Set<T>
 		}
 
 		items.CopyTo(this.items, i);
-	}
-
-	public static Set<T> operator -(Set<T> left, int right)
-	{
-		left.Remove(right);
-		return left;
 	}
 
 	/// <summary>
@@ -149,7 +143,7 @@ public struct Set<T>
 		return array;
 	}
 
-	/// <inheritdoc cref="GrowArray{T}.Pop"/>
+	/// <inheritdoc cref="Vec{T}.Pop"/>
 	public void Pop()
 	{
 		Count--;
@@ -158,23 +152,23 @@ public struct Set<T>
 #endif
 	}
 
-	/// <inheritdoc cref="GrowArray{T}.GetRandom()"/>
+	/// <inheritdoc cref="Vec{T}.GetRandom()"/>
 	public T GetRandom() => this[Random.Shared.Next(Count)];
 
-	/// <inheritdoc cref="GrowArray{T}.GetRandom(Random)"/>
+	/// <inheritdoc cref="Vec{T}.GetRandom(Random)"/>
 	public T GetRandom(Random from) => this[from.Next(Count)];
-
-	public IEnumerator<T> GetEnumerator()
-	{
-		for (int i = 0; i < Count; i++)
-			yield return items[i];
-	}
 
 	public static implicit operator T[](Set<T> array) => array.ToArray();
 
-	/// <inheritdoc cref="GrowArray{T}.ToArray"/>
+	/// <inheritdoc cref="Vec{T}.ToArray"/>
 	public T[] ToArray() => items[..Count];
 
-	/// <inheritdoc cref="GrowArray{T}.AsArray"/>
+	/// <inheritdoc cref="Vec{T}.AsArray"/>
 	public T[] AsArray() => items;
+
+	public IEnumerator<T> GetEnumerator()
+	{
+		foreach (var i in Count)
+			yield return items[i];
+	}
 }

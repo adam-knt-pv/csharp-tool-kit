@@ -7,7 +7,7 @@ namespace ToolKit.Collections;
 /// Fast grow-only array.
 /// </summary>
 /// <typeparam name="T"></typeparam>
-public struct GrowArray<T>
+public struct Vec<T>
 {
 	T[] items;
 
@@ -27,7 +27,7 @@ public struct GrowArray<T>
 		set => items[at] = value;
 	}
 
-	public static GrowArray<T> With(int capacity)
+	public static Vec<T> With(int capacity)
 	{
 #if ERR
 		ArgumentOutOfRangeException.ThrowIfNegative(capacity);
@@ -35,10 +35,10 @@ public struct GrowArray<T>
 		return new() { items = new T[capacity], Count = 0 };
 	}
 
-	public static GrowArray<T> From(params T[] array) =>
+	public static Vec<T> From(params T[] array) =>
 		new() { items = array, Count = array.Length };
 
-	public static GrowArray<T> From(T[] array, int count)
+	public static Vec<T> From(T[] array, int count)
 	{
 #if ERR
 		ArgumentOutOfRangeException.ThrowIfNegative(count);
@@ -46,12 +46,12 @@ public struct GrowArray<T>
 		return new() { items = array, Count = count };
 	}
 
-	public static GrowArray<T> Copy(T[] array, int add_capacity = 0)
+	public static Vec<T> Copy(T[] array, int add_capacity = 0)
 	{
 #if ERR
 		ArgumentOutOfRangeException.ThrowIfNegative(add_capacity);
 #endif
-		var result = new GrowArray<T>
+		var result = new Vec<T>
 		{
 			items = new T[array.Length + add_capacity],
 			Count = array.Length,
@@ -81,7 +81,7 @@ public struct GrowArray<T>
 		return false;
 	}
 
-	public static GrowArray<T> operator +(GrowArray<T> left, T right)
+	public static Vec<T> operator +(Vec<T> left, T right)
 	{
 		left.Append(right);
 		return left;
@@ -101,7 +101,7 @@ public struct GrowArray<T>
 		items[i] = item;
 	}
 
-	public static GrowArray<T> operator +(GrowArray<T> left, T[] right)
+	public static Vec<T> operator +(Vec<T> left, T[] right)
 	{
 		left.Append(right);
 		return left;
@@ -129,7 +129,7 @@ public struct GrowArray<T>
 		items.CopyTo(this.items, i);
 	}
 
-	public static GrowArray<T> operator --(GrowArray<T> array)
+	public static Vec<T> operator --(Vec<T> array)
 	{
 		array.Pop();
 		return array;
@@ -155,13 +155,7 @@ public struct GrowArray<T>
 	/// <inheritdoc cref="GetRandom()"/>
 	public T GetRandom(Random from) => this[from.Next(Count)];
 
-	public IEnumerator<T> GetEnumerator()
-	{
-		for (int i = 0; i < Count; i++)
-			yield return items[i];
-	}
-
-	public static implicit operator T[](GrowArray<T> array) => array.ToArray();
+	public static implicit operator T[](Vec<T> array) => array.ToArray();
 
 	/// <summary>
 	/// Returns a new array containing the items of this collection up to the current count.
@@ -174,4 +168,10 @@ public struct GrowArray<T>
 	/// </summary>
 	/// <returns></returns>
 	public T[] AsArray() => items;
+
+	public IEnumerator<T> GetEnumerator()
+	{
+		foreach (var i in Count)
+			yield return items[i];
+	}
 }

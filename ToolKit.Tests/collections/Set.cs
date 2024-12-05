@@ -6,7 +6,7 @@ public class Set
 	{
 		var set = Set<int>.From(1, 2, 3);
 
-		set -= 1;
+		set.Remove(1);
 		set.TryRemove(1);
 		set.TryRemove(2);
 

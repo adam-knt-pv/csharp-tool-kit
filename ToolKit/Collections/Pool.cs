@@ -131,7 +131,7 @@ public struct Pool<T>
 	/// Adds one or more items to this collection.
 	/// </summary>
 	/// <param name="items"></param>
-	public void Add(params ReadOnlySpan<T> items)
+	public void Add(params T[] items)
 	{
 		foreach (var item in items)
 			Add(item);

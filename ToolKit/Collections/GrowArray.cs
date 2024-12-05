@@ -29,31 +29,35 @@ public struct GrowArray<T>
 
 	public static GrowArray<T> With(int capacity)
 	{
-		var result = new GrowArray<T>();
 #if ERR
 		ArgumentOutOfRangeException.ThrowIfNegative(capacity);
 #endif
-		result.items = new T[capacity];
-		result.Count = 0;
-
-		return result;
+		return new() { items = new T[capacity], Count = 0 };
 	}
 
 	public static GrowArray<T> From(params T[] array) =>
-		new GrowArray<T> { items = array, Count = array.Length };
+		new() { items = array, Count = array.Length };
 
-	public static GrowArray<T> From(T[] array, int count) =>
-		new GrowArray<T>() { items = array, Count = count };
-
-	public static GrowArray<T> Copy(T[] array, int capacity = 0)
+	public static GrowArray<T> From(T[] array, int count)
 	{
-		var result = new GrowArray<T>();
 #if ERR
-		ArgumentOutOfRangeException.ThrowIfNegative(capacity);
+		ArgumentOutOfRangeException.ThrowIfNegative(count);
 #endif
-		result.items = new T[array.Length + capacity];
+		return new() { items = array, Count = count };
+	}
+
+	public static GrowArray<T> Copy(T[] array, int add_capacity = 0)
+	{
+#if ERR
+		ArgumentOutOfRangeException.ThrowIfNegative(add_capacity);
+#endif
+		var result = new GrowArray<T>
+		{
+			items = new T[array.Length + add_capacity],
+			Count = array.Length,
+		};
+
 		array.CopyTo(result.items, 0);
-		result.Count = array.Length;
 
 		return result;
 	}

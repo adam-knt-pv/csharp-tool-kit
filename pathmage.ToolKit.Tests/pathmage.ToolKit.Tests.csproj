@@ -8,7 +8,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\ToolKit\ToolKit.csproj" />
+      <ProjectReference Include="..\pathmage.ToolKit\pathmage.ToolKit.csproj" />
     </ItemGroup>
     
     <PropertyGroup>

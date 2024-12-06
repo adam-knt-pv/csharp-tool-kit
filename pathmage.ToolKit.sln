@@ -1,8 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToolKit", "ToolKit\ToolKit.csproj", "{C333FE9A-8F9C-419F-A64F-02679D9DE831}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pathmage.ToolKit", "pathmage.ToolKit\pathmage.ToolKit.csproj", "{C333FE9A-8F9C-419F-A64F-02679D9DE831}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToolKit.Tests", "ToolKit.Tests\ToolKit.Tests.csproj", "{0E1FDE96-30AD-4685-A69C-43C3C03A171B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pathmage.ToolKit.Tests", "pathmage.ToolKit.Tests\pathmage.ToolKit.Tests.csproj", "{0E1FDE96-30AD-4685-A69C-43C3C03A171B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

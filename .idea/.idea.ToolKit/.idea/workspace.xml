@@ -9,8 +9,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b37b2f93-a2c8-49db-948e-84d980b34b78" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/ToolKit/Utilities/Extensions/System/Char.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ToolKit/ToolKit.csproj.DotSettings" beforeDir="false" afterPath="$PROJECT_DIR$/ToolKit/ToolKit.csproj.DotSettings" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.ToolKit/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ToolKit/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pathmage.ToolKit/pathmage.ToolKit.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/pathmage.ToolKit/pathmage.ToolKit.csproj" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,7 +36,21 @@
   }
 }</component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/ToolKit/Collections/Set.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/pathmage.ToolKit.Tests/Collections/Pool.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/pathmage.ToolKit.Tests/Collections/Set.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/pathmage.ToolKit.Tests/Collections/Vec.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/pathmage.ToolKit.Tests/ToolKit.Tests.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/pathmage.ToolKit.Tests/Utilities/Extensions/Convert.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/pathmage.ToolKit.Tests/Utilities/Extensions/Iteration.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/pathmage.ToolKit/Collections/Pool.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/pathmage.ToolKit/Collections/Set.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/pathmage.ToolKit/Collections/Vec.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/pathmage.ToolKit/Debug/ILogger.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/pathmage.ToolKit/Debug/LoggerWrapper.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/pathmage.ToolKit/ToolKit.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/pathmage.ToolKit/Utilities/Extensions/Convert.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/pathmage.ToolKit/Utilities/Extensions/Iteration.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/pathmage.ToolKit/Utilities/Extensions/System/Char.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/211e6f3b24fa438a92f1815153647ce2c8f908/22/99ca40cd/IEquatable`1.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/13e79b2a7b78394ccf591d3454bff5bfb14e692da011a7e38b66c2312b365a/String.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/1bdc36dd4183e28bfc782d741e368f6faf4ad8397bd232ec65613e2373e/Object.CoreCLR.cs" root0="FORCE_HIGHLIGHTING" />
@@ -257,7 +271,7 @@
       <workItem from="1733475447448" duration="715000" />
       <workItem from="1733476610099" duration="4879000" />
       <workItem from="1733490250139" duration="553000" />
-      <workItem from="1733494139149" duration="805000" />
+      <workItem from="1733494139149" duration="1209000" />
     </task>
     <servers />
   </component>

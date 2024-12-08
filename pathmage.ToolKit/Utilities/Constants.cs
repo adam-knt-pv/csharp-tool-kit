@@ -2,11 +2,11 @@
 
 namespace pathmage.ToolKit;
 
-public static class Constants
+public interface Constants
 {
-	public static class Reflection
+	interface Reflection
 	{
-		public const BindingFlags BindingFlagsAllMembers =
+		const BindingFlags BindingFlagsAllMembers =
 			BindingFlags.Instance
 			| BindingFlags.Static
 			| BindingFlags.Public

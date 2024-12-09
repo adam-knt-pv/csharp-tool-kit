@@ -15,9 +15,9 @@ public interface Constants
 
 	interface Text
 	{
-		public static readonly char[] WhiteSpaceChars = [' ', '\t'];
+		static readonly char[] WhiteSpaceChars = [' ', '\t'];
 
-		public static readonly char[] FileForbiddenChars =
+		static readonly char[] FileForbiddenChars =
 		[
 			'/',
 			'\\',
@@ -37,28 +37,163 @@ public interface Constants
 			'\t',
 		];
 
+		static readonly char[] PunctuationChars =
+		[
+			'.',
+			',',
+			'?',
+			'!',
+			':',
+			';',
+			'\'',
+			'"',
+			'(',
+			')',
+			'-',
+			'[',
+			']',
+			'/',
+			'\\',
+		];
+
 		/// <summary>
 		/// Array of all strings that mean true.
 		/// </summary>
-		public static readonly string[] TrueStrings =
-		[
-			"true",
-			"t",
-			"yes",
-			"y",
-			"1",
-		];
+		static readonly string[] TrueStrings = ["true", "t", "yes", "y", "1"];
 
 		/// <summary>
 		/// Array of all strings that mean false.
 		/// </summary>
-		public static readonly string[] FalseStrings =
+		static readonly string[] FalseStrings = ["false", "f", "no", "n", "0"];
+
+		static readonly char[] NumberChars =
 		[
-			"false",
-			"f",
-			"no",
-			"n",
-			"0",
+			'0',
+			'1',
+			'2',
+			'3',
+			'4',
+			'5',
+			'6',
+			'7',
+			'8',
+			'9',
+		];
+
+		static readonly char[] LetterChars =
+		[
+			'a',
+			'b',
+			'c',
+			'd',
+			'e',
+			'f',
+			'g',
+			'h',
+			'i',
+			'j',
+			'k',
+			'l',
+			'm',
+			'n',
+			'o',
+			'p',
+			'q',
+			'r',
+			's',
+			't',
+			'u',
+			'v',
+			'w',
+			'x',
+			'y',
+			'z',
+			'A',
+			'B',
+			'C',
+			'D',
+			'E',
+			'F',
+			'G',
+			'H',
+			'I',
+			'J',
+			'K',
+			'L',
+			'M',
+			'N',
+			'O',
+			'P',
+			'Q',
+			'R',
+			'S',
+			'T',
+			'U',
+			'V',
+			'W',
+			'X',
+			'Y',
+			'Z',
+		];
+
+		static readonly char[] LetterLowerChars =
+		[
+			'a',
+			'b',
+			'c',
+			'd',
+			'e',
+			'f',
+			'g',
+			'h',
+			'i',
+			'j',
+			'k',
+			'l',
+			'm',
+			'n',
+			'o',
+			'p',
+			'q',
+			'r',
+			's',
+			't',
+			'u',
+			'v',
+			'w',
+			'x',
+			'y',
+			'z',
+		];
+
+		static readonly char[] LetterUpperChars =
+		[
+			'A',
+			'B',
+			'C',
+			'D',
+			'E',
+			'F',
+			'G',
+			'H',
+			'I',
+			'J',
+			'K',
+			'L',
+			'M',
+			'N',
+			'O',
+			'P',
+			'Q',
+			'R',
+			'S',
+			'T',
+			'U',
+			'V',
+			'W',
+			'X',
+			'Y',
+			'Z',
 		];
 	}
 }

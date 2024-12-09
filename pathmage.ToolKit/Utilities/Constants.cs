@@ -4,13 +4,9 @@ namespace pathmage.ToolKit;
 
 public interface Constants
 {
-	interface Reflection
+	interface File
 	{
-		const BindingFlags BindingFlagsAllMembers =
-			BindingFlags.Instance
-			| BindingFlags.Static
-			| BindingFlags.Public
-			| BindingFlags.NonPublic;
+		const char ItemSeparator = '¬';
 	}
 
 	interface Text
@@ -55,16 +51,6 @@ public interface Constants
 			'/',
 			'\\',
 		];
-
-		/// <summary>
-		/// Array of all strings that mean true.
-		/// </summary>
-		static readonly string[] TrueStrings = ["true", "t", "yes", "y", "1"];
-
-		/// <summary>
-		/// Array of all strings that mean false.
-		/// </summary>
-		static readonly string[] FalseStrings = ["false", "f", "no", "n", "0"];
 
 		static readonly char[] NumberChars =
 		[
@@ -195,5 +181,24 @@ public interface Constants
 			'Y',
 			'Z',
 		];
+
+		/// <summary>
+		/// Array of all strings that mean true.
+		/// </summary>
+		static readonly string[] TrueStrings = ["true", "t", "yes", "y", "1"];
+
+		/// <summary>
+		/// Array of all strings that mean false.
+		/// </summary>
+		static readonly string[] FalseStrings = ["false", "f", "no", "n", "0"];
+	}
+
+	interface Reflection
+	{
+		const BindingFlags BindingFlagsAllMembers =
+			BindingFlags.Instance
+			| BindingFlags.Static
+			| BindingFlags.Public
+			| BindingFlags.NonPublic;
 	}
 }

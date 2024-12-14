@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace pathmage.ToolKit;
+namespace pathmage.ToolKit.Globals;
 
 public interface Constants
 {

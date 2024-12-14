@@ -43,9 +43,7 @@ public class Logger
 
 	public static void LoggerWrapperTest()
 	{
-		pathmage.ToolKit.Debug.Logger.Singleton = new LoggerWrapper(
-			Console.WriteLine
-		);
+		Project.Logger = new LoggerWrapper(Console.WriteLine);
 
 		print("Hello!");
 	}

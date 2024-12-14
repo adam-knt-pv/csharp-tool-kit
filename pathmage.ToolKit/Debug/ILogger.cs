@@ -2,6 +2,8 @@
 
 namespace pathmage.ToolKit.Debug;
 
+public sealed record Logger(Action<string> Write, Action WriteLine) : ILogger;
+
 public interface ILogger
 {
 	Action<string> Write { get; }
@@ -20,10 +22,10 @@ public interface ILogger
 
 		var result = string.Join(' ', text_items);
 
-		lock (Logger.Lock)
+		lock (Project.LoggerLock)
 		{
-			Logger.Singleton.Write(result);
-			Logger.Singleton.WriteLine();
+			Project.Logger.Write(result);
+			Project.Logger.WriteLine();
 		}
 	}
 
@@ -42,32 +44,30 @@ public interface ILogger
 			? "---"
 			: $"--- {string.Join(' ', text_items)} ---";
 
-		lock (Logger.Lock)
+		lock (Project.LoggerLock)
 		{
-			Logger.Singleton.Write(result);
-			Logger.Singleton.WriteLine();
+			Project.Logger.Write(result);
+			Project.Logger.WriteLine();
 		}
 	}
 
 	static void printl(params object?[] items)
 	{
-		lock (Logger.Lock)
+		lock (Project.LoggerLock)
 		{
 			for (int i = 0; i < items.Length; i++)
 			{
 				if (items[i] is IEnumerable enumerable and not string)
 				{
-					Logger.Singleton.Write(
-						$"[{i}]: {enumerable.GetType().ToText()}"
-					);
-					Logger.Singleton.WriteLine();
+					Project.Logger.Write($"[{i}]: {enumerable.GetType().ToText()}");
+					Project.Logger.WriteLine();
 
 					printItems(enumerable, 1);
 					continue;
 				}
 
-				Logger.Singleton.Write($"[{i}]: {items[i].ToText()}");
-				Logger.Singleton.WriteLine();
+				Project.Logger.Write($"[{i}]: {items[i].ToText()}");
+				Project.Logger.WriteLine();
 			}
 		}
 
@@ -80,15 +80,15 @@ public interface ILogger
 
 				if (item is IEnumerable enumerable and not string)
 				{
-					Logger.Singleton.Write(
+					Project.Logger.Write(
 						$"{text_indent}[{i++}]: {enumerable.GetType().ToText()}"
 					);
-					Logger.Singleton.WriteLine();
+					Project.Logger.WriteLine();
 					continue;
 				}
 
-				Logger.Singleton.Write($"{text_indent}[{i++}]: {item.ToText()}");
-				Logger.Singleton.WriteLine();
+				Project.Logger.Write($"{text_indent}[{i++}]: {item.ToText()}");
+				Project.Logger.WriteLine();
 			}
 		}
 	}

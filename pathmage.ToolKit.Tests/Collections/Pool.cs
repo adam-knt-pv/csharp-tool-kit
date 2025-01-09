@@ -4,13 +4,6 @@ public class Pool
 {
 	public static void From()
 	{
-		Console.WriteLine(
-			"H5ello, 4Worl343d!".TrimAllExcept(
-				Constants.Text.LetterChars,
-				Constants.Text.NumberChars
-			)
-		);
-
 		var pool = Pool<int>.From(1, 2, 3);
 
 		pool.Add(4, 5, 6);

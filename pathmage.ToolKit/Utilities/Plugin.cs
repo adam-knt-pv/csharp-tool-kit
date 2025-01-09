@@ -3,9 +3,9 @@ using pathmage.ToolKit.Debug;
 
 namespace pathmage.ToolKit.Globals;
 
-public static class Project
+public interface Plugin
 {
-	public static ILogger Logger
+	static ILogger Logger
 	{
 		get => _logger;
 		set
@@ -14,6 +14,9 @@ public static class Project
 				_logger = value;
 		}
 	}
-	static ILogger _logger = new Logger(Console.Write, Console.WriteLine);
-	public static readonly Lock LoggerLock = new();
+	private static ILogger _logger = new Logger(
+		Console.Write,
+		Console.WriteLine
+	);
+	static readonly Lock LoggerLock = new();
 }

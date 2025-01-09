@@ -22,10 +22,10 @@ public interface ILogger
 
 		var result = string.Join(' ', text_items);
 
-		lock (Project.LoggerLock)
+		lock (Plugin.LoggerLock)
 		{
-			Project.Logger.Write(result);
-			Project.Logger.WriteLine();
+			Plugin.Logger.Write(result);
+			Plugin.Logger.WriteLine();
 		}
 	}
 
@@ -44,30 +44,30 @@ public interface ILogger
 			? "---"
 			: $"--- {string.Join(' ', text_items)} ---";
 
-		lock (Project.LoggerLock)
+		lock (Plugin.LoggerLock)
 		{
-			Project.Logger.Write(result);
-			Project.Logger.WriteLine();
+			Plugin.Logger.Write(result);
+			Plugin.Logger.WriteLine();
 		}
 	}
 
 	static void printl(params object?[] items)
 	{
-		lock (Project.LoggerLock)
+		lock (Plugin.LoggerLock)
 		{
 			for (int i = 0; i < items.Length; i++)
 			{
 				if (items[i] is IEnumerable enumerable and not string)
 				{
-					Project.Logger.Write($"[{i}]: {enumerable.GetType().ToText()}");
-					Project.Logger.WriteLine();
+					Plugin.Logger.Write($"[{i}]: {enumerable.GetType().ToText()}");
+					Plugin.Logger.WriteLine();
 
 					printItems(enumerable, 1);
 					continue;
 				}
 
-				Project.Logger.Write($"[{i}]: {items[i].ToText()}");
-				Project.Logger.WriteLine();
+				Plugin.Logger.Write($"[{i}]: {items[i].ToText()}");
+				Plugin.Logger.WriteLine();
 			}
 		}
 
@@ -80,15 +80,15 @@ public interface ILogger
 
 				if (item is IEnumerable enumerable and not string)
 				{
-					Project.Logger.Write(
+					Plugin.Logger.Write(
 						$"{text_indent}[{i++}]: {enumerable.GetType().ToText()}"
 					);
-					Project.Logger.WriteLine();
+					Plugin.Logger.WriteLine();
 					continue;
 				}
 
-				Project.Logger.Write($"{text_indent}[{i++}]: {item.ToText()}");
-				Project.Logger.WriteLine();
+				Plugin.Logger.Write($"{text_indent}[{i++}]: {item.ToText()}");
+				Plugin.Logger.WriteLine();
 			}
 		}
 	}

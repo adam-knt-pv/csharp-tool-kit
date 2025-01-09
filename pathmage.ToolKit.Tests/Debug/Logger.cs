@@ -43,7 +43,7 @@ public class Logger
 
 	public static void LoggerWrapperTest()
 	{
-		Project.Logger = new LoggerWrapper(Console.WriteLine);
+		Plugin.Logger = new LoggerWrapper(Console.WriteLine);
 
 		print("Hello!");
 	}

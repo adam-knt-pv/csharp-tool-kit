@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Text.Json;
 
 namespace pathmage.ToolKit.Debug;
 
@@ -76,7 +77,10 @@ public interface ILogger
 			var i = 0;
 			foreach (var item in items)
 			{
-				var text_indent = new string(' ', indent * 2);
+				var text_indent = new string(
+					' ',
+					indent * Constants.Text.IndentSize
+				);
 
 				if (item is IEnumerable enumerable and not string)
 				{
@@ -90,6 +94,20 @@ public interface ILogger
 				Plugin.Logger.Write($"{text_indent}[{i++}]: {item.ToText()}");
 				Plugin.Logger.WriteLine();
 			}
+		}
+	}
+
+	static void printv(object item)
+	{
+		var variables = JsonSerializer.Serialize(
+			item,
+			Constants.File.JsonDefaultOptions
+		);
+
+		lock (Plugin.LoggerLock)
+		{
+			Plugin.Logger.Write(variables);
+			Plugin.Logger.WriteLine();
 		}
 	}
 }

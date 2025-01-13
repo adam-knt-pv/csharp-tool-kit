@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Text.Json.Serialization;
 
 namespace pathmage.ToolKit.Collections;
 
@@ -9,6 +10,7 @@ namespace pathmage.ToolKit.Collections;
 /// <typeparam name="T"></typeparam>
 public struct Vec<T>
 {
+	[JsonInclude]
 	T[] items;
 
 	/// <summary>

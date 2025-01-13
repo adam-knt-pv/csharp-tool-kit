@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using System.Text.Json;
 
 namespace pathmage.ToolKit.Globals;
 
@@ -7,10 +8,20 @@ public interface Constants
 	interface File
 	{
 		const char ItemSeparator = '¬';
+
+		static readonly JsonSerializerOptions JsonDefaultOptions = new()
+		{
+			WriteIndented = true,
+			IncludeFields = true,
+			AllowTrailingCommas = true,
+			IndentSize = Text.IndentSize,
+		};
 	}
 
 	interface Text
 	{
+		const int IndentSize = 3;
+
 		static readonly char[] WhiteSpaceChars = [' ', '\t'];
 
 		static readonly char[] FileForbiddenChars =

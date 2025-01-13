@@ -1,14 +1,17 @@
 ﻿using System.Buffers;
+using System.Text.Json.Serialization;
 
 namespace pathmage.ToolKit.Collections;
 
 public struct Pool<T>
 {
+	[JsonInclude]
 	T[] items;
 
 	/// <inheritdoc cref="Vec{T}.Count"/>
 	public int Count { get; private set; }
 
+	[JsonInclude]
 	Vec<int> pooled;
 
 	/// <inheritdoc cref="Vec{T}.LastIndex"/>

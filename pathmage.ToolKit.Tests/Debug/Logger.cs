@@ -13,6 +13,12 @@ public class Logger
 		printt();
 
 		printt("New segment or smth");
+
+		printl(1, 2, 3);
+
+		printv(1);
+
+		printv(Vec<int>.With(10));
 	}
 
 	public static void PrintList()

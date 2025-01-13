@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Runtime.CompilerServices;
 using System.Text.Json;
 
 namespace pathmage.ToolKit.Debug;
@@ -31,7 +32,7 @@ public interface ILogger
 	}
 
 	/// <summary>
-	/// <inheritdoc cref="print"/>
+	/// Writes one or more items to the current output as readable text with a tab between each argument.
 	/// </summary>
 	/// <param name="items"></param>
 	static void printt(params object?[] items)
@@ -107,6 +108,18 @@ public interface ILogger
 		lock (Plugin.LoggerLock)
 		{
 			Plugin.Logger.Write(variables);
+			Plugin.Logger.WriteLine();
+		}
+	}
+
+	static void prints(
+		object? item,
+		[CallerArgumentExpression(nameof(item))] string? item_id = null
+	)
+	{
+		lock (Plugin.LoggerLock)
+		{
+			Plugin.Logger.Write($"{item_id} = {item}");
 			Plugin.Logger.WriteLine();
 		}
 	}

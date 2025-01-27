@@ -29,7 +29,7 @@ partial class Extensions
 		Type interface_type
 	)
 	{
-		var output = SetArray<Type>.With(100);
+		var output = SetArray<Type>.New(100);
 
 		foreach (var type in assembly.GetTypes())
 		{

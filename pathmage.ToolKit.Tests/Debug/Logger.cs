@@ -18,7 +18,7 @@ public class Logger
 
 		printv(1);
 
-		printv(GrowArray<int>.With(10));
+		printv(GrowArray<int>.New(10));
 
 		prints(1 + 2);
 		prints(2);

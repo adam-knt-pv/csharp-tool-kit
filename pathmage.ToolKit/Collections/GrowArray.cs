@@ -27,7 +27,7 @@ public struct GrowArray<T>
 		set => values[at] = value;
 	}
 
-	public static GrowArray<T> With(int length)
+	public static GrowArray<T> New(int length)
 	{
 #if ERR
 		ArgumentOutOfRangeException.ThrowIfNegative(length);
@@ -35,29 +35,29 @@ public struct GrowArray<T>
 		return new() { values = new T[length], Count = 0 };
 	}
 
-	public static GrowArray<T> From(params T[] array) =>
-		new() { values = array, Count = array.Length };
+	public static GrowArray<T> NewFrom(params T[] values) =>
+		new() { values = values, Count = values.Length };
 
-	public static GrowArray<T> From(T[] array, int count)
+	public static GrowArray<T> NewFrom(T[] values, int count)
 	{
 #if ERR
 		ArgumentOutOfRangeException.ThrowIfNegative(count);
 #endif
-		return new() { values = array, Count = count };
+		return new() { values = values, Count = count };
 	}
 
-	public static GrowArray<T> Copy(T[] array, int add_capacity = 0)
+	public static GrowArray<T> NewCopyFrom(T[] values, int add_length = 0)
 	{
 #if ERR
-		ArgumentOutOfRangeException.ThrowIfNegative(add_capacity);
+		ArgumentOutOfRangeException.ThrowIfNegative(add_length);
 #endif
 		var result = new GrowArray<T>
 		{
-			values = new T[array.Length + add_capacity],
-			Count = array.Length,
+			values = new T[values.Length + add_length],
+			Count = values.Length,
 		};
 
-		array.CopyTo(result.values, 0);
+		values.CopyTo(result.values, 0);
 
 		return result;
 	}

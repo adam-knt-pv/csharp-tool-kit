@@ -4,7 +4,7 @@ public class SetArray
 {
 	public static void From()
 	{
-		var set = SetArray<int>.From(1, 2, 3);
+		var set = SetArray<int>.NewFrom(1, 2, 3);
 
 		set.Remove(1);
 		set.TryRemove(1);

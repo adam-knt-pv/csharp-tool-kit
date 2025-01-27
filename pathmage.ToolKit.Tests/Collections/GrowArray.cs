@@ -9,7 +9,7 @@ public class GrowArray
 		var a2 = new GrowArray<int>();
 		print(a2.Equals(default(GrowArray<int>)));
 		print(2 / 2);
-		var array = GrowArray<int>.With(10);
+		var array = GrowArray<int>.New(10);
 		print(array.Equals(default(GrowArray<int>)));
 
 		array.Append(10);
@@ -36,7 +36,7 @@ public class GrowArray
 
 	public static void From()
 	{
-		var array = GrowArray<int>.From(10, 11, 12);
+		var array = GrowArray<int>.NewFrom(10, 11, 12);
 
 		array.Append(14);
 		array.Append(15);
@@ -54,7 +54,7 @@ public class GrowArray
 
 	public static void Copy()
 	{
-		var array = GrowArray<int>.Copy([10, 11, 12]);
+		var array = GrowArray<int>.NewCopyFrom([10, 11, 12]);
 
 		array.Append(13);
 		array.Append(14);
@@ -76,7 +76,7 @@ public class GrowArray
 
 	public static void Tests()
 	{
-		var array = GrowArray<int?>.Copy([1], 10);
+		var array = GrowArray<int?>.NewCopyFrom([1], 10);
 
 		array.Append((int?)null);
 		array.Append(14);

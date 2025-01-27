@@ -29,7 +29,7 @@ public struct PoolArray<T>
 		set => values[at] = value;
 	}
 
-	public static PoolArray<T> With(int length)
+	public static PoolArray<T> New(int length)
 	{
 #if ERR
 		ArgumentOutOfRangeException.ThrowIfNegative(length);
@@ -38,63 +38,73 @@ public struct PoolArray<T>
 		{
 			values = new T[length],
 			Count = 0,
-			pooled = GrowArray<int>.From(new int[length > 4 ? length / 2 : 10], 0),
+			pooled = GrowArray<int>.NewFrom(
+				new int[length > 4 ? length / 2 : 10],
+				0
+			),
 		};
 	}
 
-	public static PoolArray<T> From(params T[] array) =>
+	public static PoolArray<T> NewFrom(params T[] values) =>
 		new()
 		{
-			values = array,
-			Count = array.Length,
-			pooled = GrowArray<int>.From(
-				new int[array.Length > 4 ? array.Length / 2 : 10],
+			values = values,
+			Count = values.Length,
+			pooled = GrowArray<int>.NewFrom(
+				new int[values.Length > 4 ? values.Length / 2 : 10],
 				0
 			),
 		};
 
-	public static PoolArray<T> From(T[] array, int count)
+	public static PoolArray<T> NewFrom(T[] values, int count)
 	{
 #if ERR
 		ArgumentOutOfRangeException.ThrowIfNegative(count);
 #endif
 		return new()
 		{
-			values = array,
+			values = values,
 			Count = count,
-			pooled = GrowArray<int>.From(new int[count > 4 ? count / 2 : 10], 0),
+			pooled = GrowArray<int>.NewFrom(
+				new int[count > 4 ? count / 2 : 10],
+				0
+			),
 		};
 	}
 
-	public static PoolArray<T> From(T[] array, int count, GrowArray<int> pooled)
+	public static PoolArray<T> NewFrom(
+		T[] values,
+		int count,
+		GrowArray<int> pooled
+	)
 	{
 #if ERR
 		ArgumentOutOfRangeException.ThrowIfNegative(count);
 #endif
 		return new()
 		{
-			values = array,
+			values = values,
 			Count = count,
 			pooled = pooled,
 		};
 	}
 
-	public static PoolArray<T> Copy(T[] array, int add_capacity = 0)
+	public static PoolArray<T> NewCopyFrom(T[] values, int add_length = 0)
 	{
 #if ERR
-		ArgumentOutOfRangeException.ThrowIfNegative(add_capacity);
+		ArgumentOutOfRangeException.ThrowIfNegative(add_length);
 #endif
 		var result = new PoolArray<T>
 		{
-			values = new T[array.Length + add_capacity],
-			Count = array.Length,
-			pooled = GrowArray<int>.From(
-				new int[array.Length > 4 ? array.Length / 2 : 10],
+			values = new T[values.Length + add_length],
+			Count = values.Length,
+			pooled = GrowArray<int>.NewFrom(
+				new int[values.Length > 4 ? values.Length / 2 : 10],
 				0
 			),
 		};
 
-		array.CopyTo(result.values, 0);
+		values.CopyTo(result.values, 0);
 
 		return result;
 	}

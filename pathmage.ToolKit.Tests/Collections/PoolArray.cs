@@ -4,7 +4,7 @@ public class PoolArray
 {
 	public static void From()
 	{
-		var pool = PoolArray<int>.From(1, 2, 3);
+		var pool = PoolArray<int>.NewFrom(1, 2, 3);
 
 		pool.Add(4, 5, 6);
 

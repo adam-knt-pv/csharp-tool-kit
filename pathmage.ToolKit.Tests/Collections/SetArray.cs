@@ -1,6 +1,6 @@
 ﻿namespace pathmage.ToolKit.Tests.Collections;
 
-public class Set
+public class SetArray
 {
 	public static void From()
 	{

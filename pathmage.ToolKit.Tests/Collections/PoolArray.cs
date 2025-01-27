@@ -1,6 +1,6 @@
 ﻿namespace pathmage.ToolKit.Tests.Collections;
 
-public class Pool
+public class PoolArray
 {
 	public static void From()
 	{

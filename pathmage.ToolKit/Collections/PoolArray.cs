@@ -6,43 +6,46 @@ namespace pathmage.ToolKit.Collections;
 public struct PoolArray<T>
 {
 	[JsonInclude]
-	T[] items;
+	T[] values;
 
-	/// <inheritdoc cref="GrowArray{T}.Count"/>
+	[JsonInclude]
 	public int Count { get; private set; }
 
 	[JsonInclude]
 	GrowArray<int> pooled;
 
-	/// <inheritdoc cref="GrowArray{T}.LastIndex"/>
+	[JsonIgnore]
+	public int Length => values.Length;
+
+	[JsonIgnore]
 	public int LastIndex => Count - 1;
+
+	[JsonIgnore]
+	public bool IsEmpty => LastIndex == -1;
 
 	public T this[int at]
 	{
-		get => items[at];
-		set => items[at] = value;
+		get => values[at];
+		set => values[at] = value;
 	}
 
-	public static PoolArray<T> With(int capacity)
+	public static PoolArray<T> With(int length)
 	{
 #if ERR
-		ArgumentOutOfRangeException.ThrowIfNegative(capacity);
+		ArgumentOutOfRangeException.ThrowIfNegative(length);
 #endif
 		return new()
 		{
-			items = new T[capacity],
+			values = new T[length],
 			Count = 0,
-			pooled = GrowArray<int>.From(
-				new int[capacity > 4 ? capacity / 2 : 10],
-				0
-			),
+			pooled = GrowArray<int>.From(new int[length > 4 ? length / 2 : 10], 0),
 		};
 	}
 
 	public static PoolArray<T> From(params T[] array) =>
 		new()
 		{
-			items = array,
+			values = array,
 			Count = array.Length,
 			pooled = GrowArray<int>.From(
 				new int[array.Length > 4 ? array.Length / 2 : 10],
@@ -57,7 +60,7 @@ public struct PoolArray<T>
 #endif
 		return new()
 		{
-			items = array,
+			values = array,
 			Count = count,
 			pooled = GrowArray<int>.From(new int[count > 4 ? count / 2 : 10], 0),
 		};
@@ -70,7 +73,7 @@ public struct PoolArray<T>
 #endif
 		return new()
 		{
-			items = array,
+			values = array,
 			Count = count,
 			pooled = pooled,
 		};
@@ -83,7 +86,7 @@ public struct PoolArray<T>
 #endif
 		var result = new PoolArray<T>
 		{
-			items = new T[array.Length + add_capacity],
+			values = new T[array.Length + add_capacity],
 			Count = array.Length,
 			pooled = GrowArray<int>.From(
 				new int[array.Length > 4 ? array.Length / 2 : 10],
@@ -91,21 +94,11 @@ public struct PoolArray<T>
 			),
 		};
 
-		array.CopyTo(result.items, 0);
+		array.CopyTo(result.values, 0);
 
 		return result;
 	}
 
-	public static PoolArray<T> operator +(PoolArray<T> left, T right)
-	{
-		left.Add(right);
-		return left;
-	}
-
-	/// <summary>
-	/// Adds the given item to this collection.
-	/// </summary>
-	/// <param name="item"></param>
 	public int Add(T item)
 	{
 		int i;
@@ -114,39 +107,25 @@ public struct PoolArray<T>
 		{
 			i = Count++;
 
-			if (i == items.Length)
-				Array.Resize(ref items, Count << 2);
+			if (i == values.Length)
+				Array.Resize(ref values, Count << 2);
 
-			items[i] = item;
+			values[i] = item;
 			return i;
 		}
 
 		i = pooled[pooled.LastIndex];
-		items[i] = item;
+		values[i] = item;
 		pooled.Pop();
 		return i;
 	}
 
-	public static PoolArray<T> operator +(PoolArray<T> left, T[] right)
-	{
-		left.Add(right);
-		return left;
-	}
-
-	/// <summary>
-	/// Adds one or more items to this collection.
-	/// </summary>
-	/// <param name="items"></param>
 	public void Add(params T[] items)
 	{
 		foreach (var item in items)
 			Add(item);
 	}
 
-	/// <summary>
-	/// Removes the item at the given index.
-	/// </summary>
-	/// <param name="at"></param>
 	public void Remove(int at)
 	{
 #if ERR
@@ -156,19 +135,17 @@ public struct PoolArray<T>
 		pooled.Append(at);
 	}
 
-	public static implicit operator T[](PoolArray<T> array) => array.ToArray();
-
 	/// <inheritdoc cref="GrowArray{T}.ToArray"/>
-	public T[] ToArray() => items[..Count];
+	public T[] ToArray() => values[..Count];
 
 	/// <inheritdoc cref="GrowArray{T}.AsArray"/>
-	public T[] AsArray() => items;
+	public T[] AsArray() => values;
 
 	public Enumerator GetEnumerator()
 	{
 		var result = new Enumerator()
 		{
-			Items = items,
+			Items = values,
 			Indexes = ArrayPool<int>.Shared.Rent(Count - pooled.Count),
 			IndexesCount = Count - pooled.Count,
 		};

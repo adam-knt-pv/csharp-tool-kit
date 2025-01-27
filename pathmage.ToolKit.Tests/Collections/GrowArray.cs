@@ -1,16 +1,25 @@
-﻿namespace pathmage.ToolKit.Tests.Collections;
+﻿using System.Text.Json;
 
-public class Vec
+namespace pathmage.ToolKit.Tests.Collections;
+
+public class GrowArray
 {
 	public static void Capacity()
 	{
+		var a2 = new GrowArray<int>();
+		print(a2.Equals(default(GrowArray<int>)));
 		print(2 / 2);
 		var array = GrowArray<int>.With(10);
+		print(array.Equals(default(GrowArray<int>)));
 
 		array.Append(10);
 		array.Append(11);
 		array.Append(12);
 		array.Append(13, 14, 15, 16, 17, 18);
+
+		var str = JsonSerializer.Serialize(array);
+		print(str);
+		printv(JsonSerializer.Deserialize<GrowArray<int>>(str));
 
 		array.Pop();
 
@@ -29,12 +38,8 @@ public class Vec
 	{
 		var array = GrowArray<int>.From(10, 11, 12);
 
-		array += 13;
 		array.Append(14);
 		array.Append(15);
-		array += [16, 17, 18];
-
-		array--;
 
 		if (array.TryGet(8, out var item))
 			print(nameof(array.TryGet), item);

@@ -7,10 +7,10 @@ public class GrowArray
 	public static void Capacity()
 	{
 		var a2 = new GrowArray<int>();
-		print(a2.Equals(default(GrowArray<int>)));
+		print(a2 == default);
 		print(2 / 2);
 		var array = GrowArray<int>.New(10);
-		print(array.Equals(default(GrowArray<int>)));
+		print(array == default);
 
 		array.Append(10);
 		array.Append(11);

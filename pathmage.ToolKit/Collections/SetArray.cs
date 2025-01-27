@@ -144,4 +144,18 @@ public struct SetArray<T>
 		foreach (var i in Count)
 			yield return values[i];
 	}
+
+	public bool Equals(SetArray<T> other) =>
+		(values, Count) == (other.values, other.Count);
+
+	public override bool Equals(object? obj) =>
+		obj is SetArray<T> other && Equals(other);
+
+	public static bool operator ==(SetArray<T> left, SetArray<T> right) =>
+		left.Equals(right);
+
+	public static bool operator !=(SetArray<T> left, SetArray<T> right) =>
+		!left.Equals(right);
+
+	public override int GetHashCode() => HashCode.Combine(values, Count);
 }

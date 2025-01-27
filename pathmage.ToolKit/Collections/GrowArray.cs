@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace pathmage.ToolKit.Collections;
 
-public struct GrowArray<T>
+public struct GrowArray<T> : IEquatable<GrowArray<T>>
 {
 	[JsonInclude]
 	T[] values;
@@ -123,4 +123,18 @@ public struct GrowArray<T>
 		foreach (var i in Count)
 			yield return values[i];
 	}
+
+	public bool Equals(GrowArray<T> other) =>
+		(values, Count) == (other.values, other.Count);
+
+	public override bool Equals(object? obj) =>
+		obj is GrowArray<T> other && Equals(other);
+
+	public static bool operator ==(GrowArray<T> left, GrowArray<T> right) =>
+		left.Equals(right);
+
+	public static bool operator !=(GrowArray<T> left, GrowArray<T> right) =>
+		!left.Equals(right);
+
+	public override int GetHashCode() => HashCode.Combine(values, Count);
 }

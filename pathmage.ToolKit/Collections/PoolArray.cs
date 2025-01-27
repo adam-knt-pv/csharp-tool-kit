@@ -195,4 +195,19 @@ public struct PoolArray<T>
 			return false;
 		}
 	}
+
+	public bool Equals(PoolArray<T> other) =>
+		(values, Count) == (other.values, other.Count);
+
+	public override bool Equals(object? obj) =>
+		obj is PoolArray<T> other && Equals(other);
+
+	public static bool operator ==(PoolArray<T> left, PoolArray<T> right) =>
+		left.Equals(right);
+
+	public static bool operator !=(PoolArray<T> left, PoolArray<T> right) =>
+		!left.Equals(right);
+
+	public override int GetHashCode() =>
+		HashCode.Combine(values, Count, free_idxes);
 }

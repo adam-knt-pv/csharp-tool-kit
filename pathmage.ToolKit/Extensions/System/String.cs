@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using System.Text;
 
-namespace pathmage.ToolKit;
+namespace pathmage.ToolKit.Extensions;
 
 partial class Extensions
 {

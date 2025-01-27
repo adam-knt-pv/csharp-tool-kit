@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 
-namespace pathmage.ToolKit;
+namespace pathmage.ToolKit.Extensions;
 
 partial class Extensions
 {

@@ -6,45 +6,45 @@ public class Convert
 	{
 		var obj = (object)"Hello World";
 
-		Console.WriteLine(pathmage.ToolKit.Extensions.As<string?>(obj)?.Length);
+		Console.WriteLine(obj.As<string?>()?.Length);
 	}
 
 	public static void ItemsAs()
 	{
 		var items = new object[] { "11", "22", "33" };
 
-		foreach (var item in pathmage.ToolKit.Extensions.As<string>(items))
+		foreach (var item in items.As<string>())
 			Console.WriteLine(item.Length);
 	}
 
 	public static void ToText()
 	{
 		var obj = (object?)null;
-		Console.WriteLine(pathmage.ToolKit.Extensions.ToText(obj));
+		Console.WriteLine(obj.ToText());
 
 		obj = "";
-		Console.WriteLine(pathmage.ToolKit.Extensions.ToText(obj));
+		Console.WriteLine(obj.ToText());
 
 		obj = new ToStringNull();
-		Console.WriteLine(pathmage.ToolKit.Extensions.ToText(obj));
+		Console.WriteLine(obj.ToText());
 
 		obj = typeof(Action<,>);
-		Console.WriteLine(pathmage.ToolKit.Extensions.ToText(obj));
+		Console.WriteLine(obj.ToText());
 	}
 
 	public static void TypeToText()
 	{
 		var type = typeof(object);
-		Console.WriteLine(pathmage.ToolKit.Extensions.ToText(type));
+		Console.WriteLine(type.ToText());
 
 		type = typeof(Action<,>);
-		Console.WriteLine(pathmage.ToolKit.Extensions.ToText(type));
+		Console.WriteLine(type.ToText());
 
 		type = typeof(Action<int, Action<object, string>>);
-		Console.WriteLine(pathmage.ToolKit.Extensions.ToText(type));
+		Console.WriteLine(type.ToText());
 
 		type = typeof(int[,][]);
-		Console.WriteLine(pathmage.ToolKit.Extensions.ToText(type));
+		Console.WriteLine(type.ToText());
 	}
 
 	class ToStringNull

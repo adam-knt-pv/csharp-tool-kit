@@ -3,6 +3,8 @@ global using pathmage.ToolKit.Collections;
 global using static pathmage.ToolKit.Debug.ILogger;
 global using pathmage.ToolKit.Extensions;
 global using pathmage.ToolKit.Globals;
+global using pathmage.ToolKit.Helpers;
+global using pathmage.ToolKit.Utilities;
 
 namespace pathmage.ToolKit
 {

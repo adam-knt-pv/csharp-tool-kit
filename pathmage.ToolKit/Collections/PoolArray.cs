@@ -12,7 +12,7 @@ public struct PoolArray<T>
 	public int Count { get; private set; }
 
 	[JsonInclude]
-	GrowArray<int> pooled;
+	GrowArray<int> free_idxes;
 
 	[JsonIgnore]
 	public int Length => values.Length;
@@ -23,10 +23,10 @@ public struct PoolArray<T>
 	[JsonIgnore]
 	public bool IsEmpty => LastIndex == -1;
 
-	public T this[int at]
+	public T this[int idx]
 	{
-		get => values[at];
-		set => values[at] = value;
+		get => values[idx];
+		set => values[idx] = value;
 	}
 
 	public static PoolArray<T> New(int length)
@@ -38,7 +38,7 @@ public struct PoolArray<T>
 		{
 			values = new T[length],
 			Count = 0,
-			pooled = GrowArray<int>.NewFrom(
+			free_idxes = GrowArray<int>.NewFrom(
 				new int[length > 4 ? length / 2 : 10],
 				0
 			),
@@ -50,7 +50,7 @@ public struct PoolArray<T>
 		{
 			values = values,
 			Count = values.Length,
-			pooled = GrowArray<int>.NewFrom(
+			free_idxes = GrowArray<int>.NewFrom(
 				new int[values.Length > 4 ? values.Length / 2 : 10],
 				0
 			),
@@ -65,7 +65,7 @@ public struct PoolArray<T>
 		{
 			values = values,
 			Count = count,
-			pooled = GrowArray<int>.NewFrom(
+			free_idxes = GrowArray<int>.NewFrom(
 				new int[count > 4 ? count / 2 : 10],
 				0
 			),
@@ -75,7 +75,7 @@ public struct PoolArray<T>
 	public static PoolArray<T> NewFrom(
 		T[] values,
 		int count,
-		GrowArray<int> pooled
+		GrowArray<int> free_idxes
 	)
 	{
 #if ERR
@@ -85,97 +85,96 @@ public struct PoolArray<T>
 		{
 			values = values,
 			Count = count,
-			pooled = pooled,
+			free_idxes = free_idxes,
 		};
 	}
 
-	public static PoolArray<T> NewCopyFrom(T[] values, int add_length = 0)
+	public static PoolArray<T> NewFromCopyOf(T[] values, int add_length = 0)
 	{
 #if ERR
 		ArgumentOutOfRangeException.ThrowIfNegative(add_length);
 #endif
-		var result = new PoolArray<T>
+		var output = new PoolArray<T>
 		{
 			values = new T[values.Length + add_length],
 			Count = values.Length,
-			pooled = GrowArray<int>.NewFrom(
+			free_idxes = GrowArray<int>.NewFrom(
 				new int[values.Length > 4 ? values.Length / 2 : 10],
 				0
 			),
 		};
 
-		values.CopyTo(result.values, 0);
+		values.CopyTo(output.values, 0);
 
-		return result;
+		return output;
 	}
 
-	public int Add(T item)
+	public int Add(T value)
 	{
-		int i;
+		var new_idx = 0;
 
-		if (pooled.Count == 0)
+		if (free_idxes.Count == 0)
 		{
-			i = Count++;
+			new_idx = Count++;
 
-			if (i == values.Length)
+			if (new_idx == values.Length)
 				Array.Resize(ref values, Count << 2);
 
-			values[i] = item;
-			return i;
+			values[new_idx] = value;
+			return new_idx;
 		}
 
-		i = pooled[pooled.LastIndex];
-		values[i] = item;
-		pooled.Pop();
-		return i;
+		new_idx = free_idxes[free_idxes.LastIndex];
+		values[new_idx] = value;
+
+		free_idxes.Pop();
+		return new_idx;
 	}
 
-	public void Add(params T[] items)
+	public void Add(params T[] values)
 	{
-		foreach (var item in items)
+		foreach (var item in values)
 			Add(item);
 	}
 
-	public void Remove(int at)
+	public void Remove(int idx)
 	{
 #if ERR
-		ArgumentOutOfRangeException.ThrowIfNegative(at);
-		ArgumentOutOfRangeException.ThrowIfGreaterThan(at, LastIndex);
+		ArgumentOutOfRangeException.ThrowIfNegative(idx);
+		ArgumentOutOfRangeException.ThrowIfGreaterThan(idx, LastIndex);
 #endif
-		pooled.Append(at);
+		free_idxes.Append(idx);
 	}
 
-	/// <inheritdoc cref="GrowArray{T}.ToArray"/>
 	public T[] ToArray() => values[..Count];
 
-	/// <inheritdoc cref="GrowArray{T}.AsArray"/>
 	public T[] AsArray() => values;
 
 	public Enumerator GetEnumerator()
 	{
-		var result = new Enumerator()
+		var output = new Enumerator()
 		{
 			Items = values,
-			Indexes = ArrayPool<int>.Shared.Rent(Count - pooled.Count),
-			IndexesCount = Count - pooled.Count,
+			Indexes = ArrayPool<int>.Shared.Rent(Count - free_idxes.Count),
+			IndexesCount = Count - free_idxes.Count,
 		};
 
-		int ii = 0;
+		var ii = 0;
 		foreach (var i in Count)
 		{
-			foreach (var index in pooled)
+			foreach (var index in free_idxes)
 			{
 				if (index == i)
 					goto Next;
 			}
 
-			result.Indexes[ii++] = i;
+			output.Indexes[ii++] = i;
 
 			Next:
 			;
 		}
 
-		return result;
+		return output;
 	}
 
 	public struct Enumerator()

@@ -21,10 +21,10 @@ public struct GrowArray<T>
 	[JsonIgnore]
 	public bool IsEmpty => LastIndex == -1;
 
-	public T this[int at]
+	public T this[int idx]
 	{
-		get => values[at];
-		set => values[at] = value;
+		get => values[idx];
+		set => values[idx] = value;
 	}
 
 	public static GrowArray<T> New(int length)
@@ -46,51 +46,52 @@ public struct GrowArray<T>
 		return new() { values = values, Count = count };
 	}
 
-	public static GrowArray<T> NewCopyFrom(T[] values, int add_length = 0)
+	public static GrowArray<T> NewFromOf(T[] values, int add_length = 0)
 	{
 #if ERR
 		ArgumentOutOfRangeException.ThrowIfNegative(add_length);
 #endif
-		var result = new GrowArray<T>
+		var output = new GrowArray<T>
 		{
 			values = new T[values.Length + add_length],
 			Count = values.Length,
 		};
 
-		values.CopyTo(result.values, 0);
+		values.CopyTo(output.values, 0);
 
-		return result;
+		return output;
 	}
 
-	public bool TryGet(int at, [NotNullWhen(true)] out T item)
+	public bool TryGet(int idx, [NotNullWhen(true)] out T value)
 	{
-		if (at > 0 && at < Count)
+		if (idx > 0 && idx < Count)
 		{
-			item = values[at]!;
+			value = values[idx]!;
 			return true;
 		}
-		item = default!;
+
+		value = default!;
 		return false;
 	}
 
-	public void Append(T item)
+	public void Append(T value)
 	{
-		int i = Count++;
+		var new_idx = Count++;
 
-		if (i == values.Length)
+		if (new_idx == values.Length)
 			Array.Resize(ref values, Count << 2);
 
-		values[i] = item;
+		values[new_idx] = value;
 	}
 
-	public void Append(params T[] items)
+	public void Append(params T[] values)
 	{
-		int i = Count;
-		Count += items.Length;
+		var new_idx = Count;
+		Count += values.Length;
 
 		if (this.values.Length < Count)
 		{
-			int new_size = i;
+			var new_size = new_idx;
 
 			while (new_size < Count)
 				new_size <<= 2;
@@ -98,7 +99,7 @@ public struct GrowArray<T>
 			Array.Resize(ref this.values, new_size);
 		}
 
-		items.CopyTo(this.values, i);
+		values.CopyTo(this.values, new_idx);
 	}
 
 	public void Pop()
@@ -111,7 +112,7 @@ public struct GrowArray<T>
 
 	public T GetRandom() => this[Random.Shared.Next(Count)];
 
-	public T GetRandom(Random from) => this[from.Next(Count)];
+	public T GetRandom(Random random) => this[random.Next(Count)];
 
 	public T[] ToArray() => values[..Count];
 

@@ -21,10 +21,10 @@ public struct SetArray<T>
 	[JsonIgnore]
 	public bool IsEmpty => LastIndex == -1;
 
-	public T this[int at]
+	public T this[int idx]
 	{
-		get => values[at];
-		set => values[at] = value;
+		get => values[idx];
+		set => values[idx] = value;
 	}
 
 	public static SetArray<T> New(int length)
@@ -46,62 +46,63 @@ public struct SetArray<T>
 		return new() { values = values, Count = count };
 	}
 
-	public static SetArray<T> NewCopyFrom(T[] values, int add_length = 0)
+	public static SetArray<T> NewFromCopyOf(T[] values, int add_length = 0)
 	{
 #if ERR
 		ArgumentOutOfRangeException.ThrowIfNegative(add_length);
 #endif
-		var result = new SetArray<T>
+		var output = new SetArray<T>
 		{
 			values = new T[values.Length + add_length],
 			Count = values.Length,
 		};
 
-		values.CopyTo(result.values, 0);
+		values.CopyTo(output.values, 0);
 
-		return result;
+		return output;
 	}
 
-	public bool TryRemove(int at)
+	public bool TryGet(int idx, [NotNullWhen(true)] out T value)
 	{
-		if (TryGet(at, out _))
+		if (idx > 0 && idx < Count)
 		{
-			Remove(at);
+			value = values[idx]!;
+			return true;
+		}
+
+		value = default!;
+		return false;
+	}
+
+	public bool TryRemove(int idx)
+	{
+		if (TryGet(idx, out _))
+		{
+			Remove(idx);
 			return true;
 		}
 
 		return false;
 	}
 
-	public bool TryGet(int at, [NotNullWhen(true)] out T item)
+	public void Append(T value)
 	{
-		if (at > 0 && at < Count)
-		{
-			item = values[at]!;
-			return true;
-		}
-		item = default!;
-		return false;
-	}
+		var new_idx = Count++;
 
-	public void Append(T item)
-	{
-		int i = Count++;
-
-		if (i == values.Length)
+		if (new_idx == values.Length)
 			Array.Resize(ref values, Count << 2);
 
-		values[i] = item;
+		values[new_idx] = value;
 	}
 
-	public void Append(params T[] items)
+	public void Append(params T[] values)
 	{
-		int i = Count;
-		Count += items.Length;
+		var new_idx = Count;
+		Count += values.Length;
 
 		if (this.values.Length < Count)
 		{
-			int new_size = i;
+			var new_size = new_idx;
 
 			while (new_size < Count)
 				new_size <<= 2;
@@ -109,16 +110,16 @@ public struct SetArray<T>
 			Array.Resize(ref this.values, new_size);
 		}
 
-		items.CopyTo(this.values, i);
+		values.CopyTo(this.values, new_idx);
 	}
 
-	public void Remove(int at)
+	public void Remove(int idx)
 	{
 #if ERR
-		ArgumentOutOfRangeException.ThrowIfNegative(at);
-		ArgumentOutOfRangeException.ThrowIfGreaterThan(at, LastIndex);
+		ArgumentOutOfRangeException.ThrowIfNegative(idx);
+		ArgumentOutOfRangeException.ThrowIfGreaterThan(idx, LastIndex);
 #endif
-		values[at] = values[LastIndex];
+		values[idx] = values[LastIndex];
 		Pop();
 	}
 
@@ -132,7 +133,7 @@ public struct SetArray<T>
 
 	public T GetRandom() => this[Random.Shared.Next(Count)];
 
-	public T GetRandom(Random from) => this[from.Next(Count)];
+	public T GetRandom(Random random) => this[random.Next(Count)];
 
 	public T[] ToArray() => values[..Count];
 

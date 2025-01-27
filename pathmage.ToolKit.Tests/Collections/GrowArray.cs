@@ -54,7 +54,7 @@ public class GrowArray
 
 	public static void Copy()
 	{
-		var array = GrowArray<int>.NewCopyFrom([10, 11, 12]);
+		var array = GrowArray<int>.NewFromOf([10, 11, 12]);
 
 		array.Append(13);
 		array.Append(14);
@@ -76,7 +76,7 @@ public class GrowArray
 
 	public static void Tests()
 	{
-		var array = GrowArray<int?>.NewCopyFrom([1], 10);
+		var array = GrowArray<int?>.NewFromOf([1], 10);
 
 		array.Append((int?)null);
 		array.Append(14);

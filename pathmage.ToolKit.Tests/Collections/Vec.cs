@@ -5,7 +5,7 @@ public class Vec
 	public static void Capacity()
 	{
 		print(2 / 2);
-		var array = Vec<int>.With(10);
+		var array = GrowArray<int>.With(10);
 
 		array.Append(10);
 		array.Append(11);
@@ -27,7 +27,7 @@ public class Vec
 
 	public static void From()
 	{
-		var array = Vec<int>.From(10, 11, 12);
+		var array = GrowArray<int>.From(10, 11, 12);
 
 		array += 13;
 		array.Append(14);
@@ -49,7 +49,7 @@ public class Vec
 
 	public static void Copy()
 	{
-		var array = Vec<int>.Copy([10, 11, 12]);
+		var array = GrowArray<int>.Copy([10, 11, 12]);
 
 		array.Append(13);
 		array.Append(14);
@@ -71,7 +71,7 @@ public class Vec
 
 	public static void Tests()
 	{
-		var array = Vec<int?>.Copy([1], 10);
+		var array = GrowArray<int?>.Copy([1], 10);
 
 		array.Append((int?)null);
 		array.Append(14);

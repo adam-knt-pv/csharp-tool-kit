@@ -3,18 +3,18 @@ using System.Text.Json.Serialization;
 
 namespace pathmage.ToolKit.Collections;
 
-public struct Pool<T>
+public struct PoolArray<T>
 {
 	[JsonInclude]
 	T[] items;
 
-	/// <inheritdoc cref="Vec{T}.Count"/>
+	/// <inheritdoc cref="GrowArray{T}.Count"/>
 	public int Count { get; private set; }
 
 	[JsonInclude]
-	Vec<int> pooled;
+	GrowArray<int> pooled;
 
-	/// <inheritdoc cref="Vec{T}.LastIndex"/>
+	/// <inheritdoc cref="GrowArray{T}.LastIndex"/>
 	public int LastIndex => Count - 1;
 
 	public T this[int at]
@@ -23,7 +23,7 @@ public struct Pool<T>
 		set => items[at] = value;
 	}
 
-	public static Pool<T> With(int capacity)
+	public static PoolArray<T> With(int capacity)
 	{
 #if ERR
 		ArgumentOutOfRangeException.ThrowIfNegative(capacity);
@@ -32,22 +32,25 @@ public struct Pool<T>
 		{
 			items = new T[capacity],
 			Count = 0,
-			pooled = Vec<int>.From(new int[capacity > 4 ? capacity / 2 : 10], 0),
+			pooled = GrowArray<int>.From(
+				new int[capacity > 4 ? capacity / 2 : 10],
+				0
+			),
 		};
 	}
 
-	public static Pool<T> From(params T[] array) =>
+	public static PoolArray<T> From(params T[] array) =>
 		new()
 		{
 			items = array,
 			Count = array.Length,
-			pooled = Vec<int>.From(
+			pooled = GrowArray<int>.From(
 				new int[array.Length > 4 ? array.Length / 2 : 10],
 				0
 			),
 		};
 
-	public static Pool<T> From(T[] array, int count)
+	public static PoolArray<T> From(T[] array, int count)
 	{
 #if ERR
 		ArgumentOutOfRangeException.ThrowIfNegative(count);
@@ -56,11 +59,11 @@ public struct Pool<T>
 		{
 			items = array,
 			Count = count,
-			pooled = Vec<int>.From(new int[count > 4 ? count / 2 : 10], 0),
+			pooled = GrowArray<int>.From(new int[count > 4 ? count / 2 : 10], 0),
 		};
 	}
 
-	public static Pool<T> From(T[] array, int count, Vec<int> pooled)
+	public static PoolArray<T> From(T[] array, int count, GrowArray<int> pooled)
 	{
 #if ERR
 		ArgumentOutOfRangeException.ThrowIfNegative(count);
@@ -73,16 +76,16 @@ public struct Pool<T>
 		};
 	}
 
-	public static Pool<T> Copy(T[] array, int add_capacity = 0)
+	public static PoolArray<T> Copy(T[] array, int add_capacity = 0)
 	{
 #if ERR
 		ArgumentOutOfRangeException.ThrowIfNegative(add_capacity);
 #endif
-		var result = new Pool<T>
+		var result = new PoolArray<T>
 		{
 			items = new T[array.Length + add_capacity],
 			Count = array.Length,
-			pooled = Vec<int>.From(
+			pooled = GrowArray<int>.From(
 				new int[array.Length > 4 ? array.Length / 2 : 10],
 				0
 			),
@@ -93,7 +96,7 @@ public struct Pool<T>
 		return result;
 	}
 
-	public static Pool<T> operator +(Pool<T> left, T right)
+	public static PoolArray<T> operator +(PoolArray<T> left, T right)
 	{
 		left.Add(right);
 		return left;
@@ -124,7 +127,7 @@ public struct Pool<T>
 		return i;
 	}
 
-	public static Pool<T> operator +(Pool<T> left, T[] right)
+	public static PoolArray<T> operator +(PoolArray<T> left, T[] right)
 	{
 		left.Add(right);
 		return left;
@@ -153,12 +156,12 @@ public struct Pool<T>
 		pooled.Append(at);
 	}
 
-	public static implicit operator T[](Pool<T> array) => array.ToArray();
+	public static implicit operator T[](PoolArray<T> array) => array.ToArray();
 
-	/// <inheritdoc cref="Vec{T}.ToArray"/>
+	/// <inheritdoc cref="GrowArray{T}.ToArray"/>
 	public T[] ToArray() => items[..Count];
 
-	/// <inheritdoc cref="Vec{T}.AsArray"/>
+	/// <inheritdoc cref="GrowArray{T}.AsArray"/>
 	public T[] AsArray() => items;
 
 	public Enumerator GetEnumerator()

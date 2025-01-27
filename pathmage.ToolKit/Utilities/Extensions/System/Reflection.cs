@@ -20,15 +20,16 @@ partial class Extensions
 		return attribute != null;
 	}
 
-	public static Set<Type> GetTypesWithInterface<T>(this Assembly assembly) =>
-		assembly.GetTypesWithInterface(typeof(T));
+	public static SetArray<Type> GetTypesWithInterface<T>(
+		this Assembly assembly
+	) => assembly.GetTypesWithInterface(typeof(T));
 
-	public static Set<Type> GetTypesWithInterface(
+	public static SetArray<Type> GetTypesWithInterface(
 		this Assembly assembly,
 		Type interface_type
 	)
 	{
-		var output = Set<Type>.With(100);
+		var output = SetArray<Type>.With(100);
 
 		foreach (var type in assembly.GetTypes())
 		{

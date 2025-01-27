@@ -5,22 +5,18 @@ using System.Text.Json.Serialization;
 namespace pathmage.ToolKit.Collections;
 
 /// <summary>
-/// Fast grow-only array.
+/// The order of the items doesn't matter and their indexes can change.
 /// </summary>
 /// <typeparam name="T"></typeparam>
-public struct Vec<T>
+public struct SetArray<T>
 {
 	[JsonInclude]
 	T[] items;
 
-	/// <summary>
-	/// Describes how many elements are in this collection.
-	/// </summary>
+	/// <inheritdoc cref="GrowArray{T}.Count"/>
 	public int Count { get; private set; }
 
-	/// <summary>
-	/// Returns the index of the last element in this collection, or -1 if the collection is empty.
-	/// </summary>
+	/// <inheritdoc cref="GrowArray{T}.LastIndex"/>
 	public int LastIndex => Count - 1;
 
 	public T this[int at]
@@ -29,7 +25,7 @@ public struct Vec<T>
 		set => items[at] = value;
 	}
 
-	public static Vec<T> With(int capacity)
+	public static SetArray<T> With(int capacity)
 	{
 #if ERR
 		ArgumentOutOfRangeException.ThrowIfNegative(capacity);
@@ -37,10 +33,10 @@ public struct Vec<T>
 		return new() { items = new T[capacity], Count = 0 };
 	}
 
-	public static Vec<T> From(params T[] array) =>
+	public static SetArray<T> From(params T[] array) =>
 		new() { items = array, Count = array.Length };
 
-	public static Vec<T> From(T[] array, int count)
+	public static SetArray<T> From(T[] array, int count)
 	{
 #if ERR
 		ArgumentOutOfRangeException.ThrowIfNegative(count);
@@ -48,12 +44,12 @@ public struct Vec<T>
 		return new() { items = array, Count = count };
 	}
 
-	public static Vec<T> Copy(T[] array, int add_capacity = 0)
+	public static SetArray<T> Copy(T[] array, int add_capacity = 0)
 	{
 #if ERR
 		ArgumentOutOfRangeException.ThrowIfNegative(add_capacity);
 #endif
-		var result = new Vec<T>
+		var result = new SetArray<T>
 		{
 			items = new T[array.Length + add_capacity],
 			Count = array.Length,
@@ -64,14 +60,18 @@ public struct Vec<T>
 		return result;
 	}
 
-	/// <summary>
-	/// Attempts to get the item at the specified index, if the index is within the bounds of this collection.
-	/// </summary>
-	/// <param name="at">The index of the item to retrieve.</param>
-	/// <param name="item">When this method returns, contains the item at the specified index, or the default value of <typeparamref name="T"/> if the index is out of bounds.</param>
-	/// <returns>
-	/// <c>true</c> if the item was successfully retrieved; otherwise, <c>false</c> if the index is out of bounds.
-	/// </returns>
+	public bool TryRemove(int at)
+	{
+		if (TryGet(at, out _))
+		{
+			Remove(at);
+			return true;
+		}
+
+		return false;
+	}
+
+	/// <inheritdoc cref="GrowArray{T}.TryGet"/>
 	public bool TryGet(int at, [NotNullWhen(true)] out T item)
 	{
 		if (at > 0 && at < Count)
@@ -83,16 +83,13 @@ public struct Vec<T>
 		return false;
 	}
 
-	public static Vec<T> operator +(Vec<T> left, T right)
+	public static SetArray<T> operator +(SetArray<T> left, T right)
 	{
 		left.Append(right);
 		return left;
 	}
 
-	/// <summary>
-	/// Adds the given item to the end of this collection.
-	/// </summary>
-	/// <param name="item"></param>
+	/// <inheritdoc cref="GrowArray{T}.Append(T)"/>
 	public void Append(T item)
 	{
 		int i = Count++;
@@ -103,16 +100,13 @@ public struct Vec<T>
 		items[i] = item;
 	}
 
-	public static Vec<T> operator +(Vec<T> left, T[] right)
+	public static SetArray<T> operator +(SetArray<T> left, T[] right)
 	{
 		left.Append(right);
 		return left;
 	}
 
-	/// <summary>
-	/// Adds one or more items to the end of this collection.
-	/// </summary>
-	/// <param name="items"></param>
+	/// <inheritdoc cref="GrowArray{T}.Append(T[])"/>
 	public void Append(params T[] items)
 	{
 		int i = Count;
@@ -131,15 +125,27 @@ public struct Vec<T>
 		items.CopyTo(this.items, i);
 	}
 
-	public static Vec<T> operator --(Vec<T> array)
+	/// <summary>
+	/// Replaces the item at the given index with the last item of this collection.
+	/// </summary>
+	/// <param name="at"></param>
+	public void Remove(int at)
+	{
+#if ERR
+		ArgumentOutOfRangeException.ThrowIfNegative(at);
+		ArgumentOutOfRangeException.ThrowIfGreaterThan(at, LastIndex);
+#endif
+		items[at] = items[LastIndex];
+		Pop();
+	}
+
+	public static SetArray<T> operator --(SetArray<T> array)
 	{
 		array.Pop();
 		return array;
 	}
 
-	/// <summary>
-	/// Removes the element from the end of this collection.
-	/// </summary>
+	/// <inheritdoc cref="GrowArray{T}.Pop"/>
 	public void Pop()
 	{
 		Count--;
@@ -148,27 +154,18 @@ public struct Vec<T>
 #endif
 	}
 
-	/// <summary>
-	/// Gets the item at a random index within this collection.
-	/// </summary>
-	/// <returns>The item at a random index.</returns>
+	/// <inheritdoc cref="GrowArray{T}.GetRandom()"/>
 	public T GetRandom() => this[Random.Shared.Next(Count)];
 
-	/// <inheritdoc cref="GetRandom()"/>
+	/// <inheritdoc cref="GrowArray{T}.GetRandom(Random)"/>
 	public T GetRandom(Random from) => this[from.Next(Count)];
 
-	public static implicit operator T[](Vec<T> array) => array.ToArray();
+	public static implicit operator T[](SetArray<T> array) => array.ToArray();
 
-	/// <summary>
-	/// Returns a new array containing the items of this collection up to the current count.
-	/// </summary>
-	/// <returns></returns>
+	/// <inheritdoc cref="GrowArray{T}.ToArray"/>
 	public T[] ToArray() => items[..Count];
 
-	/// <summary>
-	/// Returns the underlying array that stores the items of this collection.
-	/// </summary>
-	/// <returns></returns>
+	/// <inheritdoc cref="GrowArray{T}.AsArray"/>
 	public T[] AsArray() => items;
 
 	public IEnumerator<T> GetEnumerator()

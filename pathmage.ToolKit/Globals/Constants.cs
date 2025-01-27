@@ -5,21 +5,28 @@ namespace pathmage.ToolKit.Globals;
 
 public interface Constants
 {
-	interface File
+	interface Misc
 	{
-		const char ItemSeparator = '¬';
-
-		static readonly JsonSerializerOptions JsonDefaultOptions = new()
+		static readonly JsonSerializerOptions JsonOptions = new()
 		{
 			WriteIndented = true,
 			IncludeFields = true,
 			AllowTrailingCommas = true,
 			IndentSize = Text.IndentSize,
 		};
+
+		const BindingFlags AnyAccessModifierBindingFlags =
+			BindingFlags.Instance
+			| BindingFlags.Static
+			| BindingFlags.Public
+			| BindingFlags.NonPublic;
 	}
+
+	interface File;
 
 	interface Text
 	{
+		const char ItemSeparator = '¬';
 		const int IndentSize = 3;
 
 		static readonly char[] WhiteSpaceChars = [' ', '\t'];
@@ -203,14 +210,5 @@ public interface Constants
 		/// Array of all strings that mean false.
 		/// </summary>
 		static readonly string[] FalseStrings = ["false", "f", "no", "n", "0"];
-	}
-
-	interface Reflection
-	{
-		const BindingFlags BindingFlagsAllMembers =
-			BindingFlags.Instance
-			| BindingFlags.Static
-			| BindingFlags.Public
-			| BindingFlags.NonPublic;
 	}
 }

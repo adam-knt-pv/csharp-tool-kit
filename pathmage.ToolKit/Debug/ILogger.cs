@@ -100,10 +100,7 @@ public interface ILogger
 
 	static void printv(object obj)
 	{
-		var variables = JsonSerializer.Serialize(
-			obj,
-			Constants.File.JsonDefaultOptions
-		);
+		var variables = DataHelper.Save(obj);
 
 		lock (Plugin.LoggerLock)
 		{

@@ -5,38 +5,38 @@ partial class Extensions
 	/// <summary>
 	/// Casts item to T.
 	/// </summary>
-	/// <param name="item"></param>
+	/// <param name="obj"></param>
 	/// <typeparam name="T"></typeparam>
 	/// <returns></returns>
-	public static T As<T>(this object? item) => (T)item!;
+	public static T As<T>(this object? obj) => (T)obj!;
 
 	/// <summary>
 	/// Casts multiple items to T.
 	/// </summary>
-	/// <param name="items"></param>
+	/// <param name="objects"></param>
 	/// <typeparam name="T"></typeparam>
 	/// <returns></returns>
-	public static T[] As<T>(this object?[] items)
+	public static T[] As<T>(this object?[] objects)
 	{
-		var result = new T[items.Length];
+		var output = new T[objects.Length];
 
-		items.CopyTo(result, 0);
+		objects.CopyTo(output, 0);
 
-		return result;
+		return output;
 	}
 
 	/// <summary>
 	/// Converts item to readable text.
 	/// </summary>
-	/// <param name="item"></param>
+	/// <param name="obj"></param>
 	/// <returns></returns>
-	public static string ToText(this object? item) =>
-		item switch
+	public static string ToText(this object? obj) =>
+		obj switch
 		{
 			null => "<null>",
 			string { Length: 0 } => "<empty>",
 			Type type => type.ToText(),
-			_ => item.ToString() ?? "<ToString->null>",
+			_ => obj.ToString() ?? "<ToString->null>",
 		};
 
 	/// <summary>
@@ -50,7 +50,9 @@ partial class Extensions
 		var text_generics = new string[type_generics.Length];
 
 		for (var i = 0; i < type_generics.Length; i++)
+		{
 			text_generics[i] = type_generics[i].ToText();
+		}
 
 		if (type_generics.Length > 0)
 			return $"{type.Name[..^2]}<{string.Join(", ", text_generics)}>";

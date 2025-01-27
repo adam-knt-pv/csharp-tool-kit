@@ -28,7 +28,7 @@ partial class Extensions
 		Type interface_type
 	)
 	{
-		var result = Set<Type>.With(100);
+		var output = Set<Type>.With(100);
 
 		foreach (var type in assembly.GetTypes())
 		{
@@ -39,12 +39,12 @@ partial class Extensions
 			{
 				if (type_interface == interface_type)
 				{
-					result.Append(type);
+					output.Append(type);
 					break;
 				}
 			}
 		}
 
-		return result;
+		return output;
 	}
 }

@@ -14,13 +14,13 @@ public interface ILogger
 	/// <summary>
 	/// Writes one or more items to the current output as readable text with a space between each argument.
 	/// </summary>
-	/// <param name="items"></param>
-	static void print(params object?[] items)
+	/// <param name="objects"></param>
+	static void print(params object?[] objects)
 	{
-		var text_items = new string[items.Length];
+		var text_items = new string[objects.Length];
 
-		foreach (var i in items.Length)
-			text_items[i] = items[i].ToText();
+		foreach (var i in objects.Length)
+			text_items[i] = objects[i].ToText();
 
 		var result = string.Join(' ', text_items);
 
@@ -34,15 +34,15 @@ public interface ILogger
 	/// <summary>
 	/// Writes one or more items to the current output as readable text with a tab between each argument.
 	/// </summary>
-	/// <param name="items"></param>
-	static void printt(params object?[] items)
+	/// <param name="objects"></param>
+	static void printt(params object?[] objects)
 	{
-		var text_items = new string[items.Length];
+		var text_items = new string[objects.Length];
 
-		for (var i = 0; i < items.Length; i++)
-			text_items[i] = items[i].ToText();
+		for (var i = 0; i < objects.Length; i++)
+			text_items[i] = objects[i].ToText();
 
-		string result = items is []
+		string result = objects is []
 			? "---"
 			: $"--- {string.Join(' ', text_items)} ---";
 
@@ -53,13 +53,13 @@ public interface ILogger
 		}
 	}
 
-	static void printl(params object?[] items)
+	static void printl(params object?[] objects)
 	{
 		lock (Plugin.LoggerLock)
 		{
-			for (int i = 0; i < items.Length; i++)
+			for (int i = 0; i < objects.Length; i++)
 			{
-				if (items[i] is IEnumerable enumerable and not string)
+				if (objects[i] is IEnumerable enumerable and not string)
 				{
 					Plugin.Logger.Write($"[{i}]: {enumerable.GetType().ToText()}");
 					Plugin.Logger.WriteLine();
@@ -68,15 +68,15 @@ public interface ILogger
 					continue;
 				}
 
-				Plugin.Logger.Write($"[{i}]: {items[i].ToText()}");
+				Plugin.Logger.Write($"[{i}]: {objects[i].ToText()}");
 				Plugin.Logger.WriteLine();
 			}
 		}
 
-		static void printItems(IEnumerable items, int indent)
+		static void printItems(IEnumerable objects, int indent)
 		{
 			var i = 0;
-			foreach (var item in items)
+			foreach (var item in objects)
 			{
 				var text_indent = new string(
 					' ',
@@ -98,10 +98,10 @@ public interface ILogger
 		}
 	}
 
-	static void printv(object item)
+	static void printv(object obj)
 	{
 		var variables = JsonSerializer.Serialize(
-			item,
+			obj,
 			Constants.File.JsonDefaultOptions
 		);
 
@@ -113,13 +113,13 @@ public interface ILogger
 	}
 
 	static void prints(
-		object? item,
-		[CallerArgumentExpression(nameof(item))] string? item_id = null
+		object? obj,
+		[CallerArgumentExpression(nameof(obj))] string? item_id = null
 	)
 	{
 		lock (Plugin.LoggerLock)
 		{
-			Plugin.Logger.Write($"{item_id} = {item}");
+			Plugin.Logger.Write($"{item_id} = {obj}");
 			Plugin.Logger.WriteLine();
 		}
 	}

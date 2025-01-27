@@ -5,29 +5,29 @@ namespace pathmage.ToolKit;
 
 partial class Extensions
 {
-	public static string TrimAll(this string text, params char[] chars)
+	public static string TrimAll(this string str, params char[] chars)
 	{
-		var result = new StringBuilder();
+		var output = new StringBuilder();
 
-		foreach (var c in text)
+		foreach (var c in str)
 		{
 			if (!chars.Contains(c))
-				result.Append(c);
+				output.Append(c);
 		}
 
-		return result.ToString();
+		return output.ToString();
 	}
 
-	public static string TrimAllExcept(this string text, params char[] chars)
+	public static string TrimAllExcept(this string str, params char[] chars)
 	{
-		var result = new StringBuilder();
+		var output = new StringBuilder();
 
-		foreach (var c in text)
+		foreach (var c in str)
 		{
 			if (chars.Contains(c))
-				result.Append(c);
+				output.Append(c);
 		}
 
-		return result.ToString();
+		return output.ToString();
 	}
 }

@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace pathmage.ToolKit.Collections;
 
 public readonly struct EnumArray<TEnum, T>() : IEnumerable<T>
 	where TEnum : struct, Enum
 {
+	[JsonInclude]
 	T[] values { get; } = new T[Enum<TEnum>.Length];
 
 	public T this[int idx]
@@ -39,6 +41,12 @@ public readonly struct EnumArray<TEnum, T>() : IEnumerable<T>
 	{
 		this[e] = value;
 	}
+
+	public T GetRandom() => this[Random.Shared.Next(Enum<TEnum>.Length)];
+
+	public T GetRandom(Random random) => this[random.Next(Enum<TEnum>.Length)];
+
+	public T[] AsArray() => values;
 
 	public IEnumerator<T> GetEnumerator()
 	{

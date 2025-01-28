@@ -100,7 +100,7 @@ public interface ILogger
 
 	static void printv(object obj)
 	{
-		var variables = DataHelper.Save(obj);
+		var variables = DataHelper.ToString(obj);
 
 		lock (Plugin.LoggerLock)
 		{

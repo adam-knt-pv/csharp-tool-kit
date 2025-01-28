@@ -5,22 +5,11 @@ namespace pathmage.ToolKit.Globals;
 
 public interface Constants
 {
-	interface Misc
-	{
-		static readonly JsonSerializerOptions JsonOptions = new()
-		{
-			WriteIndented = true,
-			IncludeFields = true,
-			AllowTrailingCommas = true,
-			IndentSize = Text.IndentSize,
-		};
-
-		const BindingFlags AnyAccessModifierBindingFlags =
-			BindingFlags.Instance
-			| BindingFlags.Static
-			| BindingFlags.Public
-			| BindingFlags.NonPublic;
-	}
+	const BindingFlags AnyAccessModifierBindingFlags =
+		BindingFlags.Instance
+		| BindingFlags.Static
+		| BindingFlags.Public
+		| BindingFlags.NonPublic;
 
 	interface File;
 

@@ -15,7 +15,6 @@ public interface Constants
 
 	interface Text
 	{
-		const char ItemSeparator = '¬';
 		const int IndentSize = 3;
 
 		static readonly char[] WhiteSpaceChars = [' ', '\t'];

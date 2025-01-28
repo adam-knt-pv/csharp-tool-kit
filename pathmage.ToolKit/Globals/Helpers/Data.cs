@@ -2,9 +2,11 @@
 
 namespace pathmage.ToolKit.Globals;
 
-public interface DataHelper
+public interface Data
 {
-	public static JsonSerializerOptions JsonOptions { get; } =
+	const char ItemSeparator = '¬';
+
+	static JsonSerializerOptions JsonOptions { get; } =
 		new()
 		{
 			WriteIndented = true,
@@ -13,7 +15,7 @@ public interface DataHelper
 			IndentSize = Constants.Text.IndentSize,
 		};
 
-	public static JsonSerializerOptions JsonReadableOptions { get; } =
+	static JsonSerializerOptions JsonReadableOptions { get; } =
 		new()
 		{
 			WriteIndented = true,
@@ -22,15 +24,15 @@ public interface DataHelper
 			IndentSize = Constants.Text.IndentSize,
 		};
 
-	public static string ToString<T>(T value) =>
+	static string ToString<T>(T value) =>
 		JsonSerializer.Serialize(value, JsonOptions);
 
-	public static T FromString<T>(string str) =>
+	static T FromString<T>(string str) =>
 		JsonSerializer.Deserialize<T>(str, JsonOptions)!;
 
-	public static string ToReadableString<T>(T value) =>
+	static string ToReadableString<T>(T value) =>
 		JsonSerializer.Serialize(value, JsonOptions);
 
-	public static T FromReadableString<T>(string str) =>
+	static T FromReadableString<T>(string str) =>
 		JsonSerializer.Deserialize<T>(str, JsonOptions)!;
 }

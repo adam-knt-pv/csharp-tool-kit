@@ -100,23 +100,23 @@ public interface ILogger
 
 	static void printv(object obj)
 	{
-		var variables = Data.ToString(obj);
+		var output = Data.ToReadableString(obj);
 
 		lock (Plugin.LoggerLock)
 		{
-			Plugin.Logger.Write(variables);
+			Plugin.Logger.Write(output);
 			Plugin.Logger.WriteLine();
 		}
 	}
 
 	static void prints(
 		object? obj,
-		[CallerArgumentExpression(nameof(obj))] string? item_id = null
+		[CallerArgumentExpression(nameof(obj))] string? obj_name = null
 	)
 	{
 		lock (Plugin.LoggerLock)
 		{
-			Plugin.Logger.Write($"{item_id} = {obj}");
+			Plugin.Logger.Write($"{obj_name} = {obj}");
 			Plugin.Logger.WriteLine();
 		}
 	}

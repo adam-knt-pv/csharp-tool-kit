@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
+using AdamKnight.ToolKit.Utilities;
 
-namespace pathmage.ToolKit.Collections;
+namespace AdamKnight.ToolKit.Collections;
 
 public readonly struct EnumArray<TEnum, T>() : IEnumerable<T>
 	where TEnum : struct, Enum

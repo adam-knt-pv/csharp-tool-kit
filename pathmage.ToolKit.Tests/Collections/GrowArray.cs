@@ -1,6 +1,7 @@
 ﻿using System.Text.Json;
+using AdamKnight.ToolKit.Collections;
 
-namespace pathmage.ToolKit.Tests.Collections;
+namespace AdamKnight.ToolKit.Tests.Collections;
 
 public class GrowArray
 {

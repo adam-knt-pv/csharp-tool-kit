@@ -1,8 +1,8 @@
 ﻿global using System;
-global using pathmage.ToolKit;
-global using pathmage.ToolKit.Collections;
-global using static pathmage.ToolKit.Debug.ILogger;
-global using pathmage.ToolKit.Extensions;
-global using pathmage.ToolKit.Globals;
+global using AdamKnight.ToolKit;
+global using AdamKnight.ToolKit.Collections;
+global using static AdamKnight.ToolKit.Debug.ILogger;
+global using AdamKnight.ToolKit.Extensions;
+global using AdamKnight.ToolKit.Globals;
 
-namespace pathmage.ToolKit.Tests;
+namespace AdamKnight.ToolKit.Tests;

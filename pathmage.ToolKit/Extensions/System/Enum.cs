@@ -1,6 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
 
-namespace pathmage.ToolKit.Extensions;
+namespace AdamKnight.ToolKit.Extensions;
 
 partial class Extensions
 {

@@ -1,7 +1,7 @@
 ﻿using System.Buffers;
 using System.Text.Json.Serialization;
 
-namespace pathmage.ToolKit.Collections;
+namespace AdamKnight.ToolKit.Collections;
 
 public struct PoolArray<T>
 {

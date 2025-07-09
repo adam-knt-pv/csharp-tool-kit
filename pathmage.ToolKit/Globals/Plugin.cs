@@ -1,7 +1,7 @@
 ﻿using System.Threading;
-using pathmage.ToolKit.Debug;
+using AdamKnight.ToolKit.Debug;
 
-namespace pathmage.ToolKit.Globals;
+namespace AdamKnight.ToolKit.Globals;
 
 public interface Plugin
 {

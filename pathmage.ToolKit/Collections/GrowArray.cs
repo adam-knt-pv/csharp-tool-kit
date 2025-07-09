@@ -2,7 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Text.Json.Serialization;
 
-namespace pathmage.ToolKit.Collections;
+namespace AdamKnight.ToolKit.Collections;
 
 public struct GrowArray<T> : IEquatable<GrowArray<T>>
 {

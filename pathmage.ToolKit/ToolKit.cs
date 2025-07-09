@@ -1,11 +1,11 @@
 ﻿global using System;
-global using pathmage.ToolKit.Collections;
-global using static pathmage.ToolKit.Debug.ILogger;
-global using pathmage.ToolKit.Extensions;
-global using pathmage.ToolKit.Globals;
-global using pathmage.ToolKit.Utilities;
+global using AdamKnight.ToolKit.Collections;
+global using static AdamKnight.ToolKit.Debug.ILogger;
+global using AdamKnight.ToolKit.Extensions;
+global using AdamKnight.ToolKit.Globals;
+global using AdamKnight.ToolKit.Utilities;
 
-namespace pathmage.ToolKit
+namespace AdamKnight.ToolKit
 {
 	namespace Extensions
 	{

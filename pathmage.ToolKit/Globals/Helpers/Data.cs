@@ -1,6 +1,6 @@
 ﻿using System.Text.Json;
 
-namespace pathmage.ToolKit.Globals;
+namespace AdamKnight.ToolKit.Globals;
 
 public interface Data
 {

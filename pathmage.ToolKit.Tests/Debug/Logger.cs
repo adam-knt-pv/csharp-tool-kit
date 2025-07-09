@@ -1,6 +1,8 @@
-﻿using pathmage.ToolKit.Debug;
+﻿using AdamKnight.ToolKit.Collections;
+using AdamKnight.ToolKit.Debug;
+using AdamKnight.ToolKit.Globals;
 
-namespace pathmage.ToolKit.Tests.Debug;
+namespace AdamKnight.ToolKit.Tests.Debug;
 
 public class Logger
 {

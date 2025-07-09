@@ -1,4 +1,4 @@
-﻿namespace pathmage.ToolKit.Globals;
+﻿namespace AdamKnight.ToolKit.Globals;
 
 public interface Online
 {

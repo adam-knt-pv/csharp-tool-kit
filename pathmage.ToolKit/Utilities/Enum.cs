@@ -1,4 +1,6 @@
-﻿namespace pathmage.ToolKit.Utilities;
+﻿using AdamKnight.ToolKit.Collections;
+
+namespace AdamKnight.ToolKit.Utilities;
 
 public static class Enum<TEnum>
 	where TEnum : struct, Enum

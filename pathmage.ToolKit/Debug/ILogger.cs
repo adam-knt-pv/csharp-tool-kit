@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Runtime.CompilerServices;
 using System.Text.Json;
+using AdamKnight.ToolKit.Globals;
 
-namespace pathmage.ToolKit.Debug;
+namespace AdamKnight.ToolKit.Debug;
 
 public sealed record Logger(Action<string> Write, Action WriteLine) : ILogger;
 

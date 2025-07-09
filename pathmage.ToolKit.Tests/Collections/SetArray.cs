@@ -1,4 +1,6 @@
-﻿namespace pathmage.ToolKit.Tests.Collections;
+﻿using AdamKnight.ToolKit.Collections;
+
+namespace AdamKnight.ToolKit.Tests.Collections;
 
 public class SetArray
 {

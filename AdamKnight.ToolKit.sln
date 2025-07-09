@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+#
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdamKnight.ToolKit", "AdamKnight.ToolKit\AdamKnight.ToolKit.csproj", "{6DACBB36-82C3-4AF2-9E95-D781DCF99C11}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdamKnight.ToolKit.Tests", "AdamKnight.ToolKit.Tests\AdamKnight.ToolKit.Tests.csproj", "{6A8C2CB9-EFBA-48AC-ADF8-1D7AC8BC4E1C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6DACBB36-82C3-4AF2-9E95-D781DCF99C11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6DACBB36-82C3-4AF2-9E95-D781DCF99C11}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6DACBB36-82C3-4AF2-9E95-D781DCF99C11}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6DACBB36-82C3-4AF2-9E95-D781DCF99C11}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A8C2CB9-EFBA-48AC-ADF8-1D7AC8BC4E1C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A8C2CB9-EFBA-48AC-ADF8-1D7AC8BC4E1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A8C2CB9-EFBA-48AC-ADF8-1D7AC8BC4E1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A8C2CB9-EFBA-48AC-ADF8-1D7AC8BC4E1C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

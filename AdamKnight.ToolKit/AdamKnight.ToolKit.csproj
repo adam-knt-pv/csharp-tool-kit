@@ -13,8 +13,8 @@
     </PropertyGroup>
 
     <PropertyGroup>
-        <AssemblyName>pathmage.ToolKit</AssemblyName>
-        <RootNamespace>pathmage.ToolKit</RootNamespace>
+        <AssemblyName>AdamKnight.ToolKit</AssemblyName>
+        <RootNamespace>AdamKnight.ToolKit</RootNamespace>
         <Title>pathmage.ToolKit</Title> 
         <PackageId>pathmage.ToolKit</PackageId>
         <Authors>Adam Knight (pathmage)</Authors>

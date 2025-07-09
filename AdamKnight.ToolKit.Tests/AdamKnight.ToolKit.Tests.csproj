@@ -8,12 +8,12 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\pathmage.ToolKit\pathmage.ToolKit.csproj" />
+      <ProjectReference Include="..\AdamKnight.ToolKit\AdamKnight.ToolKit.csproj" />
     </ItemGroup>
-    
+
     <PropertyGroup>
-        <AssemblyName>pathmage.ToolKit.Tests</AssemblyName>
-        <RootNamespace>pathmage.ToolKit.Tests</RootNamespace>
+        <AssemblyName>AdamKnight.ToolKit.Tests</AssemblyName>
+        <RootNamespace>AdamKnight.ToolKit.Tests</RootNamespace>
     </PropertyGroup>
 
 </Project>

@@ -62,6 +62,8 @@ public struct SetArray<T>
 		return output;
 	}
 
+	public ref T GetRef(int idx) => ref values[idx];
+
 	public bool TryGet(int idx, [NotNullWhen(true)] out T value)
 	{
 		if (idx > 0 && idx < Count)

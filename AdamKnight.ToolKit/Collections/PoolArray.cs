@@ -109,6 +109,8 @@ public struct PoolArray<T>
 		return output;
 	}
 
+	public ref T GetRef(int idx) => ref values[idx];
+
 	public int Add(T value)
 	{
 		var new_idx = 0;

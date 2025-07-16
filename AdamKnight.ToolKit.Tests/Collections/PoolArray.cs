@@ -6,9 +6,11 @@ public class PoolArray
 {
 	public static void From()
 	{
-		var pool = PoolArray<int>.NewFrom(1, 2, 3);
+		var pool = PoolArray<(int, int)>.NewFrom((0, 0), (0, 0), (0, 0));
 
-		pool.Add(4, 5, 6);
+		// pool.Add(4, 5, 6);
+
+		pool.GetRef(0).Item1++;
 
 		// pool.Remove(0);
 		// pool.Remove(2);
